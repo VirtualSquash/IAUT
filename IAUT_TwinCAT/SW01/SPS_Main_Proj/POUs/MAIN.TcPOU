@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="MAIN" Id="{e16cbd2e-88ff-4213-8f72-3fa553782b4d}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	bTasterBlau 	: BOOL := TRUE; //bool
+	uiZaehlerObjekt	: UINT := 23; //uint 16bit
+	rTemp			: REAL := -3.34; //float 16bit
+	(*
+	Kommentar
+	*)
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF bTasterBlau THEN
+	uiZaehlerObjekt := uiZaehlerObjekt +1;
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="2" Count="0" />
+      <LineId Id="13" Count="1" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
