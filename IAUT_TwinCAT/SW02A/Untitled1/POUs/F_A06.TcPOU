@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="F_A06" Id="{e4ac18e3-7fbc-4c56-8020-bd79bb8ce71f}" SpecialFunc="None">
+    <Declaration><![CDATA[
+
+FUNCTION F_A06 : INT
+VAR_INPUT
+	rInput : WORD;
+END_VAR
+VAR
+	inLenght : INT;
+	overrunError: BOOL := FALSE;
+	framingError: BOOL := FALSE;;
+	parityError: BOOL := FALSE;;
+	bufferFull: BOOL := FALSE;;
+	initAccepted: BOOL := FALSE;;
+	receiveRequest: BOOL := FALSE;;
+	transmitAccepted: BOOL := FALSE;;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[inLenght := WORD_TO_INT(SHR(rInput,8));
+overrunError := WORD_TO_BOOL(rInput AND 16#40);
+framingError := WORD_TO_BOOL(rInput AND 16#20);
+parityError := WORD_TO_BOOL(rInput AND 16#10);
+bufferFull := WORD_TO_BOOL(rInput AND 16#8);
+initAccepted := WORD_TO_BOOL(rInput AND 16#4);
+receiveRequest := WORD_TO_BOOL(rInput AND 16#2);
+transmitAccepted := WORD_TO_BOOL(rInput AND 16#1);
+
+]]></ST>
+    </Implementation>
+    <LineIds Name="F_A06">
+      <LineId Id="7" Count="0" />
+      <LineId Id="64" Count="5" />
+      <LineId Id="63" Count="0" />
+      <LineId Id="71" Count="0" />
+      <LineId Id="70" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

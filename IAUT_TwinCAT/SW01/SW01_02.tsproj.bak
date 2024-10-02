@@ -2,6 +2,7 @@
 <TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.59">
 	<Project ProjectGUID="{B8A08EF1-459F-4A6F-A649-FDD719F80A8A}" Target64Bit="true" ShowHideConfigurations="#x6">
 		<System>
+			<Settings MaxCpus="16"/>
 			<Tasks>
 				<Task Id="3" Priority="20" CycleTime="100000" AmsPort="350" AdtTasks="true">
 					<Name>PlcTask</Name>
@@ -10,7 +11,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{949E8742-4941-40F8-A842-665C664B2845}" Name="SPS_Main_Proj" PrjFilePath="SPS_Main_Proj\SPS_Main_Proj.plcproj" TmcFilePath="SPS_Main_Proj\SPS_Main_Proj.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{086E05E7-1E66-129B-E2DF-E39583195C4B}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="SPS_Main_Proj\SPS_Main_Proj.tmc" TmcHash="{369864A0-8D27-E06F-66E6-EAF22EE0A9E7}">
 					<Name>SPS_Main_Proj Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Contexts>

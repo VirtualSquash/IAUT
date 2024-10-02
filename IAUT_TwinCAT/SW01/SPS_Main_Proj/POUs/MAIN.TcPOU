@@ -9,16 +9,27 @@ VAR
 	(*
 	Kommentar
 	*)
+	rAdditionResult : REAL;
 END_VAR
+
+
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[IF bTasterBlau THEN
 	uiZaehlerObjekt := uiZaehlerObjekt +1;
-END_IF]]></ST>
+END_IF
+
+rAdditionResult := F_AdditionFunction(4.3,3.4);
+
+PRG_DoSomeMath();]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="2" Count="0" />
       <LineId Id="13" Count="1" />
+      <LineId Id="29" Count="0" />
+      <LineId Id="24" Count="0" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="27" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

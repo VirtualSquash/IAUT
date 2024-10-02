@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="PRG_DoSomeMath" Id="{3612f3dc-694e-40b5-84bd-810b78ab38d3}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PRG_DoSomeMath
+VAR_INPUT
+	
+END_VAR
+VAR
+	rVariable1 : REAL;
+	rVariable2 : REAL;
+	rVariable3 : REAL;
+	rVariable4 : REAL;
+	rPRG_Count : UINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[rPRG_Count := rPRG_Count + 1;
+
+rVariable1 := F_AdditionFunction(23.23,4.3);
+rVariable2 := F_SubstractFunction(23.23,4.3);
+rVariable3 := F_MultiplicationFunction(23.23,4.3);
+rVariable4 := F_DivisionFunction(23.23,4.3);
+]]></ST>
+    </Implementation>
+    <LineIds Name="PRG_DoSomeMath">
+      <LineId Id="10" Count="0" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="18" Count="2" />
+      <LineId Id="14" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

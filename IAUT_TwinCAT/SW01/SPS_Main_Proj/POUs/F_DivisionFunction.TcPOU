@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="F_DivisionFunction" Id="{b3f142ec-3ee5-40be-8ae1-560c5b630aff}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_DivisionFunction : REAL
+VAR_INPUT
+	rInput1 : REAL;
+	rInput2 : REAL;
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF rInput2 < GVL_Liste1.rEps THEN
+	F_DivisionFunction := 0;
+ELSE
+	F_DivisionFunction := rInput1 / rInput2;
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="F_DivisionFunction">
+      <LineId Id="17" Count="1" />
+      <LineId Id="20" Count="1" />
+      <LineId Id="19" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="F_SubstractFunction" Id="{a578b3b4-d4e5-49e9-a662-146f834fa651}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_SubstractFunction : REAL
+VAR_INPUT
+	rInput1 : REAL;
+	rInput2 : REAL;
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[F_SubstractFunction := rInput1 - rInput2;]]></ST>
+    </Implementation>
+    <LineIds Name="F_SubstractFunction">
+      <LineId Id="7" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

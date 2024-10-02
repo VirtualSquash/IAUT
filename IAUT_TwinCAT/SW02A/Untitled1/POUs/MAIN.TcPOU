@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="MAIN" Id="{931ab9aa-2266-4aee-b72b-9592c3769ea8}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	//A4
+	myWord : WORD := 16#5D7A;
+	myWord2 : WORD;
+	//A5
+	myDWord : DWORD := 16#5D7A;
+	myDWord2 : DWORD;
+	
+	//A7
+	myRealArray: ARRAY[0..9] OF REAL := [1.1, 2.2, 3.3, 4.4, 5.5,6.6,7.7,8.8,9.9,10.10];  // Array mit 10 Elementen vom Typ REAL
+	
+	//A8
+	index: INT;
+	sum: REAL;
+	mult: REAL;
+END_VAR
+
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//A4
+myWord2 := SHR(myWord,3);
+myDWord2 := SHL(myDWord,3);
+
+//A5
+myDWord2 := myWord OR 16#F0000000;
+
+//A6
+F_A06(16#1D06);
+
+//A8
+sum := 0;
+mult := 1;
+FOR index := 0 TO 9 DO
+    sum := sum + myRealArray[index];  // Addiere den Schleifenindex zur Summe
+	mult := mult * myRealArray[index];  // Addiere den Schleifenindex zur Summe
+END_FOR;
+
+//A9
+sum := 0;
+mult := 1;
+index := 0;
+WHILE index < 10 DO
+	sum := sum + myRealArray[index];  // Addiere den Schleifenindex zur Summe
+	mult := mult * myRealArray[index];  // Addiere den Schleifenindex zur Summe
+	index := index +1;
+END_WHILE;
+
+//A10
+index := 0;
+REPEAT
+    sum := sum + myRealArray[index];  // Addiere den Schleifenindex zur Summe
+	mult := mult * myRealArray[index];  // Addiere den Schleifenindex zur Summe
+	index := index +1;
+UNTIL index < 10
+END_REPEAT;]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="45" Count="0" />
+      <LineId Id="2" Count="0" />
+      <LineId Id="8" Count="0" />
+      <LineId Id="47" Count="0" />
+      <LineId Id="46" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="42" Count="0" />
+      <LineId Id="24" Count="0" />
+      <LineId Id="23" Count="0" />
+      <LineId Id="58" Count="0" />
+      <LineId Id="50" Count="0" />
+      <LineId Id="61" Count="1" />
+      <LineId Id="51" Count="1" />
+      <LineId Id="60" Count="0" />
+      <LineId Id="49" Count="0" />
+      <LineId Id="64" Count="0" />
+      <LineId Id="63" Count="0" />
+      <LineId Id="65" Count="1" />
+      <LineId Id="72" Count="0" />
+      <LineId Id="67" Count="1" />
+      <LineId Id="70" Count="1" />
+      <LineId Id="69" Count="0" />
+      <LineId Id="79" Count="0" />
+      <LineId Id="74" Count="0" />
+      <LineId Id="81" Count="0" />
+      <LineId Id="75" Count="1" />
+      <LineId Id="78" Count="0" />
+      <LineId Id="80" Count="0" />
+      <LineId Id="77" Count="0" />
+      <LineId Id="73" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

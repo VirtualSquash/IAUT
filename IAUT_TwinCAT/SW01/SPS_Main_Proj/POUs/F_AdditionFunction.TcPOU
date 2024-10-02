@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="F_AdditionFunction" Id="{55b7c8b2-8888-4720-b92d-7d926238d4a7}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_AdditionFunction : REAL
+VAR_INPUT
+	rInput1 : REAL;
+	rInput2 : REAL;
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[F_AdditionFunction := rInput1 + rInput2;]]></ST>
+    </Implementation>
+    <LineIds Name="F_AdditionFunction">
+      <LineId Id="7" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -3,38 +3,29 @@
   <PropertyGroup>
     <FileVersion>1.0.0.0</FileVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{949e8742-4941-40f8-a842-665c664b2845}</ProjectGuid>
+    <ProjectGuid>{ea602bff-ea36-4198-bf79-f8a9efeff446}</ProjectGuid>
     <SubObjectsSortedByName>True</SubObjectsSortedByName>
     <DownloadApplicationInfo>true</DownloadApplicationInfo>
     <WriteProductVersion>true</WriteProductVersion>
     <GenerateTpy>false</GenerateTpy>
-    <Name>SPS_Main_Proj</Name>
+    <Name>Untitled1</Name>
     <ProgramVersion>3.1.4024.0</ProgramVersion>
-    <Application>{6dae0bad-9ae1-4c05-bea3-be6498430735}</Application>
-    <TypeSystem>{8c58e2b5-4eb3-45ab-9afd-d5e4e1bc6a7d}</TypeSystem>
-    <Implicit_Task_Info>{272b05e9-cfa1-42e0-bab2-07491b8291e4}</Implicit_Task_Info>
-    <Implicit_KindOfTask>{e2dc250c-a776-40a0-87d2-722b397877e1}</Implicit_KindOfTask>
-    <Implicit_Jitter_Distribution>{e1f8374f-d80d-4ba6-8f51-d16c012194e8}</Implicit_Jitter_Distribution>
-    <LibraryReferences>{b33b38c2-973f-4350-8985-7a4fc470e8bb}</LibraryReferences>
+    <Application>{f786155b-3506-486f-adcc-4a959416a6b6}</Application>
+    <TypeSystem>{743b9afd-dfe5-4c80-b4c2-339ec5c7dc88}</TypeSystem>
+    <Implicit_Task_Info>{56391b96-f472-4eb6-a41b-2714dadfbe5b}</Implicit_Task_Info>
+    <Implicit_KindOfTask>{fcf858ec-d172-47c1-ba7f-9932d285b83b}</Implicit_KindOfTask>
+    <Implicit_Jitter_Distribution>{1a68b9ac-7af4-4303-8460-5cb244d4d82e}</Implicit_Jitter_Distribution>
+    <LibraryReferences>{41aa50a6-6ce2-4893-831d-b38e5bb1de88}</LibraryReferences>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="GVLs\GVL_Liste1.TcGVL">
+    <Compile Include="GVLs\GVL.TcGVL">
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
     </Compile>
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\F_AdditionFunction.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\F_SubstractFunction.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\F_MultiplicationFunction.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\F_DivisionFunction.TcPOU">
+    <Compile Include="POUs\F_A06.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
@@ -65,7 +56,7 @@
     </PlaceholderReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SPS_Main_Proj.tmc">
+    <None Include="Untitled1.tmc">
       <SubType>Content</SubType>
     </None>
   </ItemGroup>
