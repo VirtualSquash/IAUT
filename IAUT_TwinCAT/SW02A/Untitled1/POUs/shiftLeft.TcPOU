@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="shiftLeft" Id="{4936dee2-6a18-416e-9168-89c328cbbc30}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION shiftLeft : ARRAY[0..99] OF REAL
+VAR_INPUT
+	inputbuffer : ARRAY[0..99] OF REAL;
+END_VAR
+VAR
+	tempIndex : UINT := 0;
+	tempbuffer : ARRAY[0..99] OF REAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[FOR tempIndex := 0 TO 98 DO
+	tempbuffer[tempIndex] := inputbuffer[tempIndex+1];
+END_FOR
+
+shiftleft := tempbuffer;
+RETURN;]]></ST>
+    </Implementation>
+    <LineIds Name="shiftLeft">
+      <LineId Id="15" Count="0" />
+      <LineId Id="19" Count="1" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="7" Count="0" />
+      <LineId Id="21" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="FB_EdgeDetector" Id="{b5174619-237e-4dd2-8278-f66c17ef7d36}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_EdgeDetector
+VAR_INPUT
+	inputValue : BOOL;
+	DoublePressedTime: UINT;
+END_VAR
+VAR_OUTPUT
+	risingEdge : BOOL;
+	fallingEdge : BOOL;
+	DoublePressed: BOOL;
+END_VAR
+VAR
+	inputValue_old : BOOL;
+	OncePressed: BOOL := FALSE;
+	DoublePressedcounter: UINT := 0;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[risingEdge := FALSE;
+fallingEdge := FALSE;
+DoublePressed := FALSE;
+
+IF inputValue <> inputValue_old THEN
+	IF inputValue = TRUE THEN
+		risingEdge := TRUE;
+		IF OncePressed = FALSE THEN
+			OncePressed := TRUE;
+		ELSE
+			OncePressed := FALSE;
+			DoublePressed := TRUE;
+			DoublePressedcounter := 0;
+		END_IF
+	ELSE
+		fallingEdge := TRUE;
+	END_IF
+END_IF
+inputValue_old := inputValue;
+IF OncePressed = TRUE THEN
+	IF DoublePressedcounter >= DoublePressedTime THEN
+		OncePressed := FALSE;
+		DoublePressedcounter := 0;
+	ELSE
+		DoublePressedcounter := DoublePressedcounter + 1;
+	END_IF	
+END_IF
+]]></ST>
+    </Implementation>
+    <LineIds Name="FB_EdgeDetector">
+      <LineId Id="35" Count="0" />
+      <LineId Id="37" Count="0" />
+      <LineId Id="61" Count="0" />
+      <LineId Id="50" Count="0" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="53" Count="1" />
+      <LineId Id="56" Count="1" />
+      <LineId Id="60" Count="0" />
+      <LineId Id="64" Count="0" />
+      <LineId Id="55" Count="0" />
+      <LineId Id="21" Count="1" />
+      <LineId Id="19" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="23" Count="0" />
+      <LineId Id="75" Count="0" />
+      <LineId Id="79" Count="4" />
+      <LineId Id="76" Count="1" />
+      <LineId Id="70" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

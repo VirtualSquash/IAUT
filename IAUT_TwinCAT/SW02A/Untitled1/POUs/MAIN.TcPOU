@@ -9,6 +9,7 @@ VAR
 	//A5
 	myDWord : DWORD := 16#5D7A;
 	myDWord2 : DWORD;
+	myWord3 : WORD := 2#1111000011110000;
 	
 	//A7
 	myRealArray: ARRAY[0..9] OF REAL := [1.1, 2.2, 3.3, 4.4, 5.5,6.6,7.7,8.8,9.9,10.10];  // Array mit 10 Elementen vom Typ REAL
@@ -17,9 +18,25 @@ VAR
 	index: INT;
 	sum: REAL;
 	mult: REAL;
+	
+	//A11
+	bTasterblau : BOOL := TRUE;
+	bTastergelb : BOOL := TRUE;
+	blue_been_pressed : BOOL := FALSE;
+	blue_led : BOOL := FALSE;
+	blue_Counter : uint := 0;
+	uiNumberPositiveEdgeBlue : UINT := 0;
+	blueEdgeDetector : FB_EdgeDetector;
+	yellowEdgeDetector : FB_EdgeDetector;
+	
+	//A14
+	bufferArray : ARRAY[0..99] OF REAL ;
+	
+	
 END_VAR
 
-]]></Declaration>
+//frage wie kann man LED ansteueren?
+//frage Ausgabe UltracSonic senosr?]]></Declaration>
     <Implementation>
       <ST><![CDATA[//A4
 myWord2 := SHR(myWord,3);
@@ -56,7 +73,50 @@ REPEAT
 	mult := mult * myRealArray[index];  // Addiere den Schleifenindex zur Summe
 	index := index +1;
 UNTIL index < 10
-END_REPEAT;]]></ST>
+END_REPEAT;
+
+//A11
+blueEdgeDetector(inputValue := bTasterblau, DoublePressedTime := 5);
+IF blueEdgeDetector.risingEdge = TRUE THEN
+	uiNumberPositiveEdgeBlue := uiNumberPositiveEdgeBlue + 1;
+	
+	//A12
+	blue_been_pressed := NOT blue_been_pressed;
+	blue_Counter := 0;
+END_IF
+yellowEdgeDetector(inputValue := bTastergelb, DoublePressedTime := 10);
+
+//12
+IF blue_been_pressed = TRUE THEN
+	blue_Counter := blue_Counter + 1;
+	IF blue_Counter >= 33 THEN
+		blue_led := NOT blue_led;
+		blue_Counter := 0;
+	END_IF
+END_IF
+
+//A14
+shiftLeft(bufferArray);
+averageCalculator(bufferArray);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="45" Count="0" />
@@ -89,6 +149,25 @@ END_REPEAT;]]></ST>
       <LineId Id="80" Count="0" />
       <LineId Id="77" Count="0" />
       <LineId Id="73" Count="0" />
+      <LineId Id="106" Count="1" />
+      <LineId Id="105" Count="0" />
+      <LineId Id="112" Count="0" />
+      <LineId Id="180" Count="0" />
+      <LineId Id="160" Count="0" />
+      <LineId Id="182" Count="0" />
+      <LineId Id="181" Count="0" />
+      <LineId Id="177" Count="0" />
+      <LineId Id="114" Count="0" />
+      <LineId Id="179" Count="0" />
+      <LineId Id="183" Count="0" />
+      <LineId Id="178" Count="0" />
+      <LineId Id="171" Count="5" />
+      <LineId Id="170" Count="0" />
+      <LineId Id="108" Count="0" />
+      <LineId Id="142" Count="0" />
+      <LineId Id="184" Count="5" />
+      <LineId Id="143" Count="13" />
+      <LineId Id="141" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

@@ -28,7 +28,7 @@ initAccepted := WORD_TO_BOOL(rInput AND 16#4);
 receiveRequest := WORD_TO_BOOL(rInput AND 16#2);
 transmitAccepted := WORD_TO_BOOL(rInput AND 16#1);
 
-]]></ST>
+RETURN;]]></ST>
     </Implementation>
     <LineIds Name="F_A06">
       <LineId Id="7" Count="0" />

@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="forgettingFactor" Id="{850b9e85-df92-4a3b-94bb-e188e3082866}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK forgettingFactor
+VAR_INPUT
+	inputValue : REAL;
+END_VAR
+VAR_OUTPUT
+	meanValue : REAL;
+END_VAR
+VAR
+	A_Factor : REAL := 0.5;
+	y_um :REAL;
+	meanValue_um : REAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[meanValue := A_Factor * meanValue_um + (1-A_Factor)*y_um;
+
+y_um := inputValue;
+meanValue_um := meanValue;]]></ST>
+    </Implementation>
+    <LineIds Name="forgettingFactor">
+      <LineId Id="9" Count="0" />
+      <LineId Id="23" Count="0" />
+      <LineId Id="22" Count="0" />
+      <LineId Id="24" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
