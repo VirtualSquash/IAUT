@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="MAIN" Id="{bb41530f-5714-4ed9-aa91-9f70d69b7053}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	iCounter 		: INT := 0;
+	fb_counter1 	: FB_counter;
+	fb_counter2 	: FB_counter;
+	iCounterOutFb2 	: INT; 
+	
+	f_counter1 		: INT;
+	
+	(*-------------------------------------------*)
+
+	st_motorValues 	: ST_MotorValues; 
+	
+	rtest1 			: REAL;
+	rtest2 			: REAL;
+	rtest3 			: REAL;
+	
+	(* Timer*) 
+	ton_timer1 		: Ton;
+	btimer_start	: BOOL;
+	bLamp 			: bool;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+(*------------------- Counter als PRG, Fkt und FB ------------------------*)
+
+iCounter := iCounter +1; // Referenz counter im Main
+
+(* Counter Aufruf in einem Programm*) 
+P_counter();
+P_counter(); // wird 2 mal aufgerufen im Main und einmal im Task_4 
+
+(* Counter Aufruf als Funktionsbausteine *)
+fb_counter1(iCounterStep := 1); // Erste Instanz des Counter FBs: Aufruf mit Schrittweite 1
+fb_counter1(iCounterStep := 2); // aufruf mit Schrittweite 2
+
+
+fb_counter1.iCounterStep := 3; 
+fb_counter1(); // ist äquivalient zu: fb_counter1(iCounterStep := 3);
+
+fb_counter2(); // zweite Instanz des Counter FBs
+
+fb_counter2(iCounterOut => iCounterOutFb2);  // Counterwerte output wird einer Variable im Main zugewiesen (inkl. Aufruf)  
+iCounterOutFb2 := fb_counter2.iCounterOut;  // Counterwerte output wird einer Variable im Main zugewiesen (ohne. Aufruf)
+
+(* Counter Aufruf als Funktion *)
+// Hat kein Gedächtnis, counter Zwischenresultat wird deshalb im Main (in Variable f_counter1) gespeichert
+f_counter1 := F_counter(iCounter := f_counter1, iCounterStep := 2); 
+
+
+(*-------------------Funktion mit struct als Returnwert ------------------------*)
+st_motorValues := F_MotorCalc();
+
+
+(*------------------- Typenkonvertiertung ------------------------*)
+rtest1 := 10/3;
+rtest2 := 10/3.0;
+rtest3 := 10/INT_TO_REAL(3);
+
+
+(*------------------- Timer ------------------------*)
+// Timeraufruf Variante 1
+ton_timer1(IN := btimer_start, PT:= T#5S);
+
+
+// Timeraufruf Variante 2
+ton_timer1.IN := btimer_start;
+ton_timer1.PT:= T#5S;
+ton_timer1();
+
+IF ton_timer1.Q THEN // Code für Blinkelampe
+	ton_timer1(IN:=FALSE);
+	bLamp := NOT(bLamp);
+END_IF
+
+
+]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="107" Count="0" />
+      <LineId Id="33" Count="0" />
+      <LineId Id="108" Count="0" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="32" Count="0" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="2" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="34" Count="0" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="10" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="31" Count="0" />
+      <LineId Id="25" Count="0" />
+      <LineId Id="21" Count="2" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="19" Count="0" />
+      <LineId Id="7" Count="0" />
+      <LineId Id="26" Count="1" />
+      <LineId Id="106" Count="0" />
+      <LineId Id="6" Count="0" />
+      <LineId Id="36" Count="1" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="39" Count="0" />
+      <LineId Id="45" Count="1" />
+      <LineId Id="40" Count="0" />
+      <LineId Id="38" Count="0" />
+      <LineId Id="54" Count="0" />
+      <LineId Id="56" Count="0" />
+      <LineId Id="58" Count="1" />
+      <LineId Id="52" Count="0" />
+      <LineId Id="77" Count="0" />
+      <LineId Id="63" Count="0" />
+      <LineId Id="79" Count="1" />
+      <LineId Id="78" Count="0" />
+      <LineId Id="74" Count="2" />
+      <LineId Id="66" Count="0" />
+      <LineId Id="53" Count="0" />
+      <LineId Id="67" Count="0" />
+      <LineId Id="69" Count="0" />
+      <LineId Id="68" Count="0" />
+      <LineId Id="81" Count="1" />
+      <LineId Id="51" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

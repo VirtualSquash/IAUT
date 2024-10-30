@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <DUT Name="enm_state" Id="{4e2e121f-f1e7-4084-9a78-600baa4b5d9c}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE enm_state :
+(
+	undifined := 0,
+	Init,
+	Automod,
+	Manualmod
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

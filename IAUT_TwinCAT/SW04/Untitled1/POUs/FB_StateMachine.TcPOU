@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="FB_StateMachine" Id="{dfaab771-882f-4eab-bdd9-ade71369f0f9}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_StateMachine
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	State:		enm_state := enm_state.Init;
+	ton_timerAutoMode : Ton;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//noch ein Fehler man müsste noch warten bis der Taster wieder los gelassen ist.
+CASE State OF
+	enm_state.undifined:
+	;
+	enm_state.Init:
+	IO.bGreenLight:= TRUE;
+	IO.bRedLight:= TRUE;
+	IF IO.bYellos_Mode THEN
+		State := enm_state.Automod;
+
+	END_IF
+	;
+	enm_state.Automod:
+	ton_timerAutoMode(IN := TRUE, PT := T#2S);
+	IF ton_timerAutoMode.Q = TRUE THEN
+		IO.bRedLight := NOT IO.bRedLight;
+		IO.bGreenLight:= NOT IO.bGreenLight;
+		ton_timerAutoMode(IN := FALSE, PT := T#2S);
+	END_IF
+	
+	IF IO.bYellos_Mode THEN
+	State := enm_state.Init;
+	END_IF
+		
+	;
+	enm_state.Manualmod:
+	;
+END_CASE]]></ST>
+    </Implementation>
+    <LineIds Name="FB_StateMachine">
+      <LineId Id="57" Count="0" />
+      <LineId Id="30" Count="25" />
+      <LineId Id="12" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

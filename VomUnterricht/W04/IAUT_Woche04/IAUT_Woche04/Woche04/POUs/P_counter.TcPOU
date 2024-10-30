@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="P_counter" Id="{83c85a13-f4ab-43fb-b683-b335d8183aae}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM P_counter
+VAR
+	iCounter : INT := 0;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[iCounter := iCounter +1;]]></ST>
+    </Implementation>
+    <LineIds Name="P_counter">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

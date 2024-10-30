@@ -1,0 +1,669 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://www.plcopen.org/xml/tc6_0200">
+  <fileHeader companyName="Beckhoff Automation GmbH" productName="TwinCAT PLC Control" productVersion="3.5.13.20" creationDateTime="2020-03-24T21:12:55.1576625" />
+  <contentHeader name="Aufgabe2SPS" modificationDateTime="2020-03-24T21:12:55.1616657">
+    <coordinateInfo>
+      <fbd>
+        <scaling x="1" y="1" />
+      </fbd>
+      <ld>
+        <scaling x="1" y="1" />
+      </ld>
+      <sfc>
+        <scaling x="1" y="1" />
+      </sfc>
+    </coordinateInfo>
+    <addData>
+      <data name="http://www.3s-software.com/plcopenxml/projectinformation" handleUnknown="implementation">
+        <ProjectInformation />
+      </data>
+    </addData>
+  </contentHeader>
+  <types>
+    <dataTypes />
+    <pous />
+  </types>
+  <instances>
+    <configurations />
+  </instances>
+  <addData>
+    <data name="http://www.3s-software.com/plcopenxml/application" handleUnknown="implementation">
+      <resource name="Aufgabe2SPS">
+        <task name="PlcTask" interval="PT0S" priority="20">
+          <pouInstance name="MAIN" typeName="">
+            <documentation>
+              <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+            </documentation>
+          </pouInstance>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/tasksettings" handleUnknown="implementation">
+              <TaskSettings KindOfTask="Cyclic" Interval="10000" IntervalUnit="us">
+                <Watchdog Enabled="false" TimeUnit="ms" />
+              </TaskSettings>
+            </data>
+            <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+              <ObjectId>b3b2532a-3bf1-487c-8bf0-864602a6006f</ObjectId>
+            </data>
+          </addData>
+        </task>
+        <addData>
+          <data name="http://www.3s-software.com/plcopenxml/datatype" handleUnknown="implementation">
+            <dataType name="ST_STATUS_WORD_DATA">
+              <baseType>
+                <struct>
+                  <variable name="inLenght">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                  <variable name="overrunError">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="framingError">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="parityError">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="bufferFull">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="initAccepted">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="receiveRequest">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="transmitAccepted">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                </struct>
+              </baseType>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/interfaceasplaintext" handleUnknown="implementation">
+                  <InterfaceAsPlainText>
+                    <xhtml xmlns="http://www.w3.org/1999/xhtml">TYPE ST_STATUS_WORD_DATA :
+STRUCT
+	inLenght : INT;
+   overrunError  :  BOOL;
+   framingError  :  BOOL;
+   parityError  :  BOOL;
+   bufferFull  :  BOOL;
+   initAccepted  :  BOOL;
+   receiveRequest  :  BOOL;
+   transmitAccepted  :  BOOL;		
+
+END_STRUCT
+END_TYPE
+</xhtml>
+                  </InterfaceAsPlainText>
+                </data>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>6100a887-595c-4253-889a-be2e97bedc30</ObjectId>
+                </data>
+              </addData>
+            </dataType>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="FB_EdgeDetector" pouType="functionBlock">
+              <interface>
+                <inputVars>
+                  <variable name="b_InputSignal_k">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                </inputVars>
+                <outputVars>
+                  <variable name="b_PositiveEdge">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="b_NegativeEdge">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                </outputVars>
+                <localVars>
+                  <variable name="b_InputSignal_k_1">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                </localVars>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">b_PositiveEdge := b_InputSignal_k AND NOT b_InputSignal_k_1;
+b_NegativeEdge := NOT b_InputSignal_k AND b_InputSignal_k_1;
+
+b_InputSignal_k_1 := b_InputSignal_k;</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/interfaceasplaintext" handleUnknown="implementation">
+                  <InterfaceAsPlainText>
+                    <xhtml xmlns="http://www.w3.org/1999/xhtml">FUNCTION_BLOCK FB_EdgeDetector
+VAR_INPUT
+	b_InputSignal_k : BOOL;
+END_VAR
+VAR_OUTPUT
+	b_PositiveEdge : BOOL;
+	b_NegativeEdge : BOOL;
+END_VAR
+VAR
+	b_InputSignal_k_1 : BOOL;
+END_VAR
+</xhtml>
+                  </InterfaceAsPlainText>
+                </data>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>c7b5231f-e8d0-4d6a-9062-0fbf4479b8b4</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="F_AdditionFunction" pouType="function">
+              <interface>
+                <returnType>
+                  <INT />
+                </returnType>
+                <inputVars>
+                  <variable name="i_var1">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                  <variable name="i_var2">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                </inputVars>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">F_AdditionFunction := i_var1 + i_var2;</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/interfaceasplaintext" handleUnknown="implementation">
+                  <InterfaceAsPlainText>
+                    <xhtml xmlns="http://www.w3.org/1999/xhtml">FUNCTION F_AdditionFunction : INT
+VAR_INPUT
+	i_var1 : INT;
+	i_var2 : INT;
+END_VAR
+VAR
+	
+END_VAR
+</xhtml>
+                  </InterfaceAsPlainText>
+                </data>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>309f8455-b043-43fc-a577-86461ee6c392</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="F_DivisionFunction" pouType="function">
+              <interface>
+                <returnType>
+                  <INT />
+                </returnType>
+                <inputVars>
+                  <variable name="i_var1">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                  <variable name="i_var2">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                </inputVars>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">IF i_var2 = 0 THEN
+	F_DivisionFunction := 0;
+ELSE	
+	F_DivisionFunction := i_var1 / i_var2;
+END_IF
+</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/interfaceasplaintext" handleUnknown="implementation">
+                  <InterfaceAsPlainText>
+                    <xhtml xmlns="http://www.w3.org/1999/xhtml">FUNCTION F_DivisionFunction : INT
+VAR_INPUT
+	i_var1 : INT;
+	i_var2 : INT;
+END_VAR
+VAR
+	
+END_VAR
+</xhtml>
+                  </InterfaceAsPlainText>
+                </data>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>b8f8b2c8-b15f-456f-90ce-adb05caeb8ca</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="F_STATUS_WORD_PROC" pouType="function">
+              <interface>
+                <returnType>
+                  <derived name="ST_STATUS_WORD_DATA" />
+                </returnType>
+                <inputVars>
+                  <variable name="w_StatusWord">
+                    <type>
+                      <WORD />
+                    </type>
+                  </variable>
+                </inputVars>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">
+
+F_STATUS_WORD_PROC.transmitAccepted := w_StatusWord.0;
+F_STATUS_WORD_PROC.parityError := w_StatusWord.1;
+F_STATUS_WORD_PROC.initAccepted := w_StatusWord.2;
+F_STATUS_WORD_PROC.bufferFull := w_StatusWord.3;
+F_STATUS_WORD_PROC.parityError := w_StatusWord.4;
+F_STATUS_WORD_PROC.framingError := w_StatusWord.5;
+F_STATUS_WORD_PROC.overrunError := w_StatusWord.6;
+F_STATUS_WORD_PROC.inLenght := WORD_TO_INT(SHR(w_StatusWord,8));</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/interfaceasplaintext" handleUnknown="implementation">
+                  <InterfaceAsPlainText>
+                    <xhtml xmlns="http://www.w3.org/1999/xhtml">FUNCTION F_STATUS_WORD_PROC : ST_STATUS_WORD_DATA
+VAR_INPUT
+	w_StatusWord : WORD;
+END_VAR
+VAR
+END_VAR
+</xhtml>
+                  </InterfaceAsPlainText>
+                </data>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>2e7e933b-dbe1-4158-8997-44b75cd3bed0</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="MAIN" pouType="program">
+              <interface>
+                <localVars>
+                  <variable name="i_var1">
+                    <type>
+                      <INT />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Lokale Variablen um die Funktionen
+ F_AdditionFunction und F_DivisionFunction zu testen</xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="i_var2">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                  <variable name="i_addRes">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                  <variable name="i_divRes">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                  <variable name="w_myword">
+                    <type>
+                      <WORD />
+                    </type>
+                    <initialValue>
+                      <simpleValue value="16#5D7A" />
+                    </initialValue>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> 16 bits</xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="w_divRes">
+                    <type>
+                      <WORD />
+                    </type>
+                  </variable>
+                  <variable name="dw_mydword">
+                    <type>
+                      <DWORD />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> 32 bits</xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="dw_mydword1">
+                    <type>
+                      <DWORD />
+                    </type>
+                  </variable>
+                  <variable name="w_testWord">
+                    <type>
+                      <WORD />
+                    </type>
+                  </variable>
+                  <variable name="st_resRsProt">
+                    <type>
+                      <derived name="ST_STATUS_WORD_DATA" />
+                    </type>
+                  </variable>
+                  <variable name="arr_r_testArray">
+                    <type>
+                      <array>
+                        <dimension lower="1" upper="10" />
+                        <baseType>
+                          <REAL />
+                        </baseType>
+                      </array>
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Array von REAL, Dimension 10
+ arr_r_testArray : ARRAY[0..9] OF REAL;</xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="r_SummeArray">
+                    <type>
+                      <REAL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Variablen für FOR Schleife</xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="r_MulArray">
+                    <type>
+                      <REAL />
+                    </type>
+                  </variable>
+                  <variable name="i_SchleifeIterVar">
+                    <type>
+                      <INT />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Variabel für FOR Schleife</xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="fbEdgeDetectorGelb">
+                    <type>
+                      <derived name="FB_EdgeDetector" />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> Edge detektor 2 Mal instanzieren</xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="fbEdgeDetectorBlau">
+                    <type>
+                      <derived name="FB_EdgeDetector" />
+                    </type>
+                  </variable>
+                  <variable name="bGelbTaster">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> "Software" Taster um Edge Detektor zu testen</xhtml>
+                    </documentation>
+                  </variable>
+                  <variable name="bBlauTaster">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="bGelbPositivEdge">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> TRUE if positive Flanke bei gelbem Taster</xhtml>
+                    </documentation>
+                  </variable>
+                </localVars>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">// Aufruf Funktionen Addition/Division direkt vom Main
+i_addRes := F_AdditionFunction(i_var1, i_var2);
+i_divRes := F_DivisionFunction(i_var1, i_var2);
+
+// Aufruf Funktionen Addition/Division direkt vom DoSomeMath
+P_DoSomeMath.i_var1 := i_var1;
+P_DoSomeMath.i_var2 := i_var2;
+P_DoSomeMath();
+i_addRes := P_DoSomeMath.i_addRes;
+i_divRes := P_DoSomeMath.i_divRes;
+
+// Teilung durch 8 -&gt; shift right 3 bits
+w_divRes := SHR(w_myword, 3);
+
+// Multiplikation mit 8 -&gt; shift left 3 bits
+dw_mydword := SHL(w_myword, 3);
+
+// Vier höchsten bits auf 1 setzen 
+dw_mydword1 := dw_mydword OR 16#F0000000;
+
+// Aufruf Funktion für RS232 Protokoll
+// Auswertung vom Statuswort
+st_resRsProt := F_STATUS_WORD_PROC(w_testWord);
+ 
+// FOR Schleife um die Elemente von Array zusammen zu addieren
+// bzw. zu multiplizieren
+r_SummeArray := 0.0;
+r_MulArray   := 1.0;
+FOR i_SchleifeIterVar := 1 TO 10 DO
+	r_SummeArray := r_SummeArray + arr_r_testArray[i_SchleifeIterVar];
+	r_MulArray := r_MulArray * arr_r_testArray[i_SchleifeIterVar];
+END_FOR
+
+
+fbEdgeDetectorGelb(b_InputSignal_k := bGelbTaster);
+bGelbPositivEdge := fbEdgeDetectorGelb.b_PositiveEdge;
+// Alternativ, Funktionsausruf + Zuweisung Ergebnis in einem Schritt
+// fbEdgeDetectorGelb(b_InputSignal_k := bGelbTaster, b_PositiveEdge =&gt; bGelbPositivEdge);
+IF bGelbpositivEdge THEN
+	// Hier Brekpoint setzen mit F9 um EdgeDetector zu testen
+	r_MulArray := 0;
+END_IF
+ 
+fbEdgeDetectorBlau(b_InputSignal_k := bBlauTaster);</xhtml>
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/interfaceasplaintext" handleUnknown="implementation">
+                  <InterfaceAsPlainText>
+                    <xhtml xmlns="http://www.w3.org/1999/xhtml">PROGRAM MAIN
+VAR
+	// Lokale Variablen um die Funktionen
+	// F_AdditionFunction und F_DivisionFunction zu testen
+	i_var1   : INT;
+	i_var2   : INT;
+	i_addRes : INT;
+	i_divRes : INT;
+	
+	// 16 bits
+	w_myword : WORD := 16#5D7A;
+	w_divRes : WORD;
+	
+	// 32 bits
+	dw_mydword : DWORD;
+	dw_mydword1 : DWORD;
+	
+	w_testWord : WORD;
+	
+	st_resRsProt : ST_STATUS_WORD_DATA;
+	
+	// Array von REAL, Dimension 10
+	// arr_r_testArray : ARRAY[0..9] OF REAL;
+	arr_r_testArray : ARRAY[1..10] OF REAL;
+	
+	// Variablen für FOR Schleife
+	r_SummeArray : REAL;
+	r_MulArray : REAL;
+	
+	// Variabel für FOR Schleife
+	i_SchleifeIterVar : INT;
+	
+	// Edge detektor 2 Mal instanzieren
+	fbEdgeDetectorGelb : FB_EdgeDetector;
+	fbEdgeDetectorBlau : FB_EdgeDetector;
+	
+	// "Software" Taster um Edge Detektor zu testen
+	bGelbTaster : BOOL;
+	bBlauTaster : BOOL;
+	
+	// TRUE if positive Flanke bei gelbem Taster
+	bGelbPositivEdge : BOOL;
+	
+	
+END_VAR
+</xhtml>
+                  </InterfaceAsPlainText>
+                </data>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>57bf95ca-260b-48c4-9e75-71f215a57d8e</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+            <pou name="P_DoSomeMath" pouType="program">
+              <interface>
+                <inputVars>
+                  <variable name="i_var1">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                  <variable name="i_var2">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                </inputVars>
+                <outputVars>
+                  <variable name="i_addRes">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                  <variable name="i_divRes">
+                    <type>
+                      <INT />
+                    </type>
+                  </variable>
+                </outputVars>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+                </ST>
+              </body>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/interfaceasplaintext" handleUnknown="implementation">
+                  <InterfaceAsPlainText>
+                    <xhtml xmlns="http://www.w3.org/1999/xhtml">PROGRAM P_DoSomeMath
+VAR
+END_VAR
+// VAR_INPUT und VAR_OUTPUT müssen vor Hand
+// hinzugefügt werden!!
+VAR_INPUT
+	i_var1 : INT;
+	i_var2 : INT;
+END_VAR
+VAR_OUTPUT
+	i_addRes : INT;
+	i_divRes : INT;
+END_VAR
+</xhtml>
+                  </InterfaceAsPlainText>
+                </data>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>0309d053-c44d-477c-8f8e-d9fbf85bcbfe</ObjectId>
+                </data>
+              </addData>
+            </pou>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/libraries" handleUnknown="implementation">
+            <Libraries>
+              <Library Name="#Tc2_Standard" Namespace="Tc2_Standard" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="false" LinkAllContent="false" DefaultResolution="Tc2_Standard, * (Beckhoff Automation GmbH)" />
+              <Library Name="#Tc2_System" Namespace="Tc2_System" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="false" LinkAllContent="false" DefaultResolution="Tc2_System, * (Beckhoff Automation GmbH)">
+                <Parameters>
+                  <Parameter Name="TABLE_UPPER_BOUND" Value="15" />
+                  <Parameter Name="STRING_LENGTH_EXP" Value="255" />
+                  <Parameter Name="STRING_LENGTH_ADDRESS" Value="20" />
+                  <Parameter Name="STRING_LENGTH_COMMENT" Value="255" />
+                  <Parameter Name="STRING_LENGTH_OUTSTRING" Value="255" />
+                  <Parameter Name="TABLE_SHOW_VALID_ITEMS" Value="FALSE" />
+                </Parameters>
+              </Library>
+              <Library Name="#Tc3_Module" Namespace="Tc3_Module" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="false" LinkAllContent="false" DefaultResolution="Tc3_Module, * (Beckhoff Automation GmbH)" />
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>4b621c8a-e5cd-4ef8-abb2-bb8cf45ad2bf</ObjectId>
+                </data>
+              </addData>
+            </Libraries>
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+            <ObjectId>af8d59a0-7299-4d5c-b058-d75242329823</ObjectId>
+          </data>
+        </addData>
+      </resource>
+    </data>
+    <data name="http://www.3s-software.com/plcopenxml/projectstructure" handleUnknown="discard">
+      <ProjectStructure>
+        <Object Name="Aufgabe2SPS" ObjectId="af8d59a0-7299-4d5c-b058-d75242329823">
+          <Object Name="Library Manager" ObjectId="4b621c8a-e5cd-4ef8-abb2-bb8cf45ad2bf" />
+          <Folder Name="DUTs">
+            <Object Name="ST_STATUS_WORD_DATA" ObjectId="6100a887-595c-4253-889a-be2e97bedc30" />
+          </Folder>
+          <Object Name="PlcTask" ObjectId="b3b2532a-3bf1-487c-8bf0-864602a6006f" />
+          <Folder Name="POUs">
+            <Object Name="FB_EdgeDetector" ObjectId="c7b5231f-e8d0-4d6a-9062-0fbf4479b8b4" />
+            <Object Name="F_AdditionFunction" ObjectId="309f8455-b043-43fc-a577-86461ee6c392" />
+            <Object Name="F_DivisionFunction" ObjectId="b8f8b2c8-b15f-456f-90ce-adb05caeb8ca" />
+            <Object Name="F_STATUS_WORD_PROC" ObjectId="2e7e933b-dbe1-4158-8997-44b75cd3bed0" />
+            <Object Name="MAIN" ObjectId="57bf95ca-260b-48c4-9e75-71f215a57d8e" />
+            <Object Name="P_DoSomeMath" ObjectId="0309d053-c44d-477c-8f8e-d9fbf85bcbfe" />
+          </Folder>
+        </Object>
+      </ProjectStructure>
+    </data>
+  </addData>
+</project>

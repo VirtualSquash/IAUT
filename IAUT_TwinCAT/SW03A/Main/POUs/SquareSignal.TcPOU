@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="SquareSignal" Id="{e9882a5e-46fa-44bf-a50e-17f82fce03f1}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION SquareSignal : REAL
+VAR_INPUT
+	ymin:				REAL; 	//Minimalwert
+	ymax:				REAL; 	//Maximalwert
+	w:					REAL; 	//Kreisfrequenz
+	yoff:				REAL; 	//yoffset
+	t : 				REAL;	//Zeit
+END_VAR
+VAR
+	tempTime:			REAL;
+	tempVar:			INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[tempTime := t/((2*PI)/w);
+tempVar := REAL_TO_INT(t/((2*PI)/w));
+
+IF(tempVar>tempTime) THEN
+	tempVar := tempVar-1;
+END_IF
+tempTime := tempTime-tempVar;
+
+IF(tempTime >= (0.5)) THEN
+	SquareSignal := ymax + yoff;
+	RETURN;
+ELSE
+	SquareSignal := ymin + yoff;
+	RETURN;
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="SquareSignal">
+      <LineId Id="38" Count="0" />
+      <LineId Id="56" Count="0" />
+      <LineId Id="61" Count="0" />
+      <LineId Id="59" Count="0" />
+      <LineId Id="62" Count="1" />
+      <LineId Id="60" Count="0" />
+      <LineId Id="58" Count="0" />
+      <LineId Id="39" Count="5" />
+      <LineId Id="16" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="FB_counter" Id="{0dcfbd8b-c291-48eb-b185-90020c8b62bd}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_counter
+VAR_INPUT
+	iCounterStep : INT := 1;
+END_VAR
+VAR_OUTPUT
+	iCounterOut : INT;
+END_VAR
+VAR
+	iCounter : INT := 0;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[iCounter := iCounter + iCounterStep;]]></ST>
+    </Implementation>
+    <LineIds Name="FB_counter">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

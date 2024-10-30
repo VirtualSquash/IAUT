@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <DUT Name="ST_MotorValues" Id="{d43f7281-4e0d-4fd3-b2eb-381d860f5bff}">
+    <Declaration><![CDATA[TYPE ST_MotorValues :
+STRUCT
+	iEncoderPosition 	: INT;
+	rSpeed				: REAL;
+	bOverheat			: BOOL;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

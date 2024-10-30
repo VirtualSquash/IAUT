@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="MAIN" Id="{5409316e-79f4-408c-a491-4c9c321f4cbd}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	(* bsp. Timeraufruf Häufigkeit *)
+	bTimerIn_call 		: BOOL;
+	timer_call_1		: TON;
+	timer_call_2		: TON;
+	
+	iTotalPLCCycles		: INT;
+	iCycles 			: INT 		:= 100; // Häufigkeit der timer aufrufe
+	iCycles_cnt 		: INT 		:= 100; 	
+	iCycles_stop1 		: INT;
+	iCycles_stop2 		: INT;
+	
+	bstop 				: BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+iTotalPLCCycles := iTotalPLCCycles+1;
+(* Timer Aufruf *) 
+
+(* timer calls *)
+// timer_call_1 wird jeden Zyklus aufgerufen (Neuberechnung von Q und ET erfolgt jeden Zyklus (alle 10 ms))
+// timer_call_2 wird jeden 100. Zyklus aufgerufen (Neuberechung von Q und ET erfolgt nur jede Sekunde einmal)
+// Fazit: Timer zählt intern weiter. Auflösung der internen Berechnung ist abhängig von der Aufruffrequenz.
+iCycles_cnt := iCycles_cnt + 1;
+timer_call_1(IN := bTimerIn_call, PT := T#20.1S);
+
+
+
+// Reset counter
+IF iCycles_cnt >= iCycles THEN
+	timer_call_2(IN := bTimerIn_call, PT := T#20.1S);
+	iCycles_cnt := 0; // Reset counter
+END_IF
+
+
+
+// check timer value after 8.3 s
+IF timer_call_1.ET = T#8.3S THEN
+	bstop := TRUE; 
+END_IF
+
+IF timer_call_1.Q THEN
+	iCycles_stop1 := iTotalPLCCycles;	
+	timer_call_1(IN:= FALSE);
+END_IF
+
+IF timer_call_2.Q THEN
+	iCycles_stop2 := iTotalPLCCycles;	
+	timer_call_2(IN:= FALSE);
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="6" Count="0" />
+      <LineId Id="23" Count="8" />
+      <LineId Id="48" Count="0" />
+      <LineId Id="50" Count="0" />
+      <LineId Id="68" Count="0" />
+      <LineId Id="64" Count="0" />
+      <LineId Id="63" Count="0" />
+      <LineId Id="65" Count="0" />
+      <LineId Id="82" Count="0" />
+      <LineId Id="66" Count="0" />
+      <LineId Id="86" Count="0" />
+      <LineId Id="2" Count="0" />
+      <LineId Id="70" Count="3" />
+      <LineId Id="69" Count="0" />
+      <LineId Id="75" Count="0" />
+      <LineId Id="74" Count="0" />
+      <LineId Id="77" Count="0" />
+      <LineId Id="93" Count="0" />
+      <LineId Id="78" Count="3" />
+      <LineId Id="94" Count="0" />
+      <LineId Id="76" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

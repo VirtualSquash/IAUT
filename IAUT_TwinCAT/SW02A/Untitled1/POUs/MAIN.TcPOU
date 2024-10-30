@@ -29,6 +29,10 @@ VAR
 	blueEdgeDetector : FB_EdgeDetector;
 	yellowEdgeDetector : FB_EdgeDetector;
 	
+	//A13
+	intUltrasonicSensor : INT;
+	voltageUltrasonicSensor : REAL;
+	
 	//A14
 	bufferArray : ARRAY[0..99] OF REAL ;
 	
@@ -94,6 +98,9 @@ IF blue_been_pressed = TRUE THEN
 		blue_Counter := 0;
 	END_IF
 END_IF
+
+//A13
+voltageUltrasonicSensor := intUltrasonicSensor / 10.0;
 
 //A14
 shiftLeft(bufferArray);
@@ -163,6 +170,8 @@ averageCalculator(bufferArray);
       <LineId Id="178" Count="0" />
       <LineId Id="171" Count="5" />
       <LineId Id="170" Count="0" />
+      <LineId Id="225" Count="1" />
+      <LineId Id="266" Count="0" />
       <LineId Id="108" Count="0" />
       <LineId Id="142" Count="0" />
       <LineId Id="184" Count="5" />

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="F_MotorCalc" Id="{7d943e7a-0a81-47f2-95ed-70a1a6eb75fd}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_MotorCalc : ST_MotorValues
+VAR_INPUT
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+F_MotorCalc.bOverheat := TRUE;
+F_MotorCalc.iEncoderPosition := 485;
+]]></ST>
+    </Implementation>
+    <LineIds Name="F_MotorCalc">
+      <LineId Id="13" Count="0" />
+      <LineId Id="7" Count="0" />
+      <LineId Id="15" Count="1" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

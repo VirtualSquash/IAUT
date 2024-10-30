@@ -3,14 +3,23 @@
   <POU Name="MAIN" Id="{aa14506c-e177-4d89-94bf-b04e2e20aa7f}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
-	counter : INT := 0;
+	SinusValue :	REAL := 0;
+	SquareValue:	REAL := 0;
+	PWMValue:		REAL := 0;
+	t:				REAL := 0;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[counter := counter + 1;]]></ST>
+      <ST><![CDATA[SinusValue := SinusFunction(A:=2,yoff:=0,w:=2,t:=t);
+SquareValue := SquareSignal(ymin:= 4, ymax := 3, w:= 5, yoff:= -1, t:=t);
+
+t := t + 0.01;]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="2" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="11" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

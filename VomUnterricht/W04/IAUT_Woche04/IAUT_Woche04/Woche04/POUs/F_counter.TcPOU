@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="F_counter" Id="{5a2d1e63-af9a-4b6f-b619-74f720bc8095}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_counter : INT
+VAR_INPUT
+	iCounter : INT := 0;
+	iCounterStep : INT;
+END_VAR
+VAR
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[iCounter := iCounter +iCounterStep;
+
+F_counter := iCounter;]]></ST>
+    </Implementation>
+    <LineIds Name="F_counter">
+      <LineId Id="7" Count="0" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="14" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

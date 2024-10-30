@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="SinusFunction" Id="{ea880a9a-fb9c-4955-a99d-c49b67123bd6}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION SinusFunction : REAL
+VAR_INPUT
+	A : 	REAL; 		//Amplitude
+	yoff : 	REAL;		//Offset
+	w : 	REAL;		//Kreisfrequenz
+	t : 	REAL;		//Zeit
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[SinusFunction := A * sin(w*t) + yoff;
+RETURN;]]></ST>
+    </Implementation>
+    <LineIds Name="SinusFunction">
+      <LineId Id="21" Count="0" />
+      <LineId Id="7" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
