@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <DUT Name="SafeState" Id="{ed3dc943-1481-41e6-8463-b12791cdc564}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE SafeState :
+(
+	Init := 0,
+	Close,
+	CheckDigit,
+	Open,
+	WrongCode
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

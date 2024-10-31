@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <GVL Name="Constants" Id="{ff5cfcb4-e907-4612-b358-529d3844bbf9}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL CONSTANT
+	ANALOGOUTPUTMAXVOLT : INT := 10;
+	INTMAXVALUE : INT := 100;
+	SAMPLINGTIME : REAL := 0.01;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

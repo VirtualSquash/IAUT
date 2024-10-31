@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="MAIN" Id="{5ac8c4b0-4521-448a-9af0-c298b452b449}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	clear :		BOOL;
+	block :		BOOL;
+	disable :	BOOL;
+	red :		BOOL;
+	yellow :	BOOL;
+	green :		BOOL;
+	Ampel1 : FB_Ampel;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[Ampel1(clear_road:=clear,block_road:=block,disable_system:= disable);
+red := Ampel1.red;
+yellow := Ampel1.yellow;
+green := Ampel1.green;]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="2" Count="0" />
+      <LineId Id="14" Count="2" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

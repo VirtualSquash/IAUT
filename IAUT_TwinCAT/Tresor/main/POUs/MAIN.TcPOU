@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="MAIN" Id="{94b9cd60-5f9e-4278-9b1e-9a64d0edbf45}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	actualState	:		SafeState := SafeState.Init;	
+
+	blueEdgeDetector : 		FB_EdgeDetector;
+	yellowEdgeDetector :	FB_EdgeDetector;
+	codeArray : 			ARRAY[0..3] OF BOOL;  // Array mit 4 Elementen vom Typ BOOL
+	currentIndex :			INT := 0;
+	correctIndex :			INT := 0;
+	timer :					TON;
+END_VAR
+
+VAR CONSTANT
+    lightDuration : TIME := T#5S;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[blueEdgeDetector(inputValue:=IO.bBlueButton,DoublePressedTime := 10);
+yellowEdgeDetector(inputValue:=IO.bYellowButton,DoublePressedTime := 10);
+
+
+CASE actualState OF
+	SafeState.Init:
+	IF NOT(blueEdgeDetector.risingEdge = TRUE AND yellowEdgeDetector.risingEdge = TRUE) THEN
+		IF blueEdgeDetector.risingEdge = TRUE THEN
+			codeArray[currentIndex] := TRUE;
+			currentIndex := currentIndex + 1;
+		ELSE
+			IF yellowEdgeDetector.risingEdge = TRUE THEN
+				codeArray[currentIndex] := FALSE;
+				currentIndex := currentIndex + 1;
+			END_IF
+		END_IF
+		IF currentIndex >= 4 THEN
+			actualState := SafeState.Close;
+			currentIndex := 0;
+		END_IF
+	END_IF
+	;
+	SafeState.Close:
+		timer(IN:= FALSE,PT:=lightDuration);
+		IO.bGreenLight := FALSE;
+		IO.bRedLight := FALSE;
+		actualState := SafeState.CheckDigit;
+	;
+	SafeState.CheckDigit:
+	IF NOT(blueEdgeDetector.risingEdge = TRUE AND yellowEdgeDetector.risingEdge = TRUE) THEN
+		IF blueEdgeDetector.risingEdge = TRUE THEN
+			IF codeArray[currentIndex] = TRUE THEN
+				correctIndex := correctIndex + 1;
+			END_IF
+			currentIndex := currentIndex + 1;
+		ELSE
+			IF yellowEdgeDetector.risingEdge = TRUE THEN
+				IF codeArray[currentIndex] = FALSE THEN
+					correctIndex := correctIndex + 1;
+				END_IF
+				currentIndex := currentIndex + 1;
+			END_IF
+		END_IF
+
+		IF currentIndex >= 4 THEN
+			currentIndex := 0;
+			IF correctIndex >= 4 THEN
+				correctIndex:= 0;
+				actualState := SafeState.Open;
+			ELSE
+				correctIndex := 0;
+				actualState := SafeState.WrongCode;
+			END_IF
+		END_IF
+	END_IF
+	;
+	SafeState.Open:
+	IO.bGreenLight := TRUE;
+	timer(IN:= TRUE,PT:=lightDuration);
+	IF timer.Q = TRUE THEN
+		actualState := SafeState.Close;
+	END_IF
+	;
+	SafeState.WrongCode:
+	IO.bRedLight := TRUE;
+	timer(IN:= TRUE,PT:=lightDuration);
+	IF timer.Q = TRUE THEN
+		actualState := SafeState.Close;
+	END_IF
+	;
+END_CASE]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="47" Count="3" />
+      <LineId Id="16" Count="1" />
+      <LineId Id="56" Count="1" />
+      <LineId Id="59" Count="0" />
+      <LineId Id="144" Count="0" />
+      <LineId Id="63" Count="0" />
+      <LineId Id="135" Count="1" />
+      <LineId Id="143" Count="0" />
+      <LineId Id="137" Count="0" />
+      <LineId Id="60" Count="0" />
+      <LineId Id="68" Count="1" />
+      <LineId Id="93" Count="0" />
+      <LineId Id="70" Count="0" />
+      <LineId Id="58" Count="0" />
+      <LineId Id="18" Count="1" />
+      <LineId Id="26" Count="0" />
+      <LineId Id="71" Count="2" />
+      <LineId Id="107" Count="0" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="83" Count="2" />
+      <LineId Id="94" Count="1" />
+      <LineId Id="148" Count="0" />
+      <LineId Id="86" Count="0" />
+      <LineId Id="138" Count="0" />
+      <LineId Id="141" Count="1" />
+      <LineId Id="139" Count="0" />
+      <LineId Id="147" Count="0" />
+      <LineId Id="140" Count="0" />
+      <LineId Id="88" Count="2" />
+      <LineId Id="104" Count="0" />
+      <LineId Id="99" Count="0" />
+      <LineId Id="105" Count="0" />
+      <LineId Id="100" Count="0" />
+      <LineId Id="102" Count="0" />
+      <LineId Id="106" Count="0" />
+      <LineId Id="103" Count="0" />
+      <LineId Id="101" Count="0" />
+      <LineId Id="92" Count="0" />
+      <LineId Id="39" Count="0" />
+      <LineId Id="108" Count="0" />
+      <LineId Id="40" Count="1" />
+      <LineId Id="110" Count="3" />
+      <LineId Id="109" Count="0" />
+      <LineId Id="51" Count="0" />
+      <LineId Id="116" Count="4" />
+      <LineId Id="52" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

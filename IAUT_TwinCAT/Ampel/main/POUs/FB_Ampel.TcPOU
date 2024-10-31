@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="FB_Ampel" Id="{2a7076c5-8104-40f1-ae57-d1c2574b7743}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Ampel
+VAR_INPUT
+	clear_road :		BOOL;
+	block_road :		BOOL;
+	disable_system :	BOOL;
+END_VAR
+VAR_OUTPUT
+	red :				BOOL;
+	yellow :			BOOL;
+	green :				BOOL;
+END_VAR
+VAR
+	actualState	:		AmpelState := AmpelState.Init;
+	timer : 			TON;
+	yellowred_lightDuration : 	TIME := T#2S;
+	yellow_lightDuration : 		TIME := T#5S;
+	blink_lightDuration : 		TIME := T#0.5S;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+
+
+
+
+
+
+
+
+CASE actualState OF
+	AmpelState.Init:
+	actualState := AmpelState.Red;
+	;
+	AmpelState.Red:
+	red := TRUE;
+	yellow := FALSE;
+	green := FALSE;
+	IF disable_system THEN
+		actualState := AmpelState.Disabled;
+	ELSE 
+		IF clear_road THEN
+			actualState := AmpelState.Red_Yellow;
+		END_IF
+	END_IF
+	;
+	AmpelState.Disabled:
+	red := FALSE;
+	green := FALSE;
+	timer(IN:= TRUE,PT:=blink_lightDuration);
+	IF timer.Q THEN
+		timer(IN:=FALSE, PT:= blink_lightDuration);
+		yellow := NOT yellow;
+	END_IF
+	IF NOT disable_system THEN
+		actualState := AmpelState.Red;
+	END_IF
+	;
+	AmpelState.Red_Yellow:
+	red := TRUE;
+	yellow := TRUE;
+	green := FALSE;
+	timer(IN:= TRUE,PT:=yellowred_lightDuration);
+	IF timer.Q THEN
+		timer(IN:=FALSE, PT:= yellowred_lightDuration);
+		actualState := AmpelState.Green;
+	END_IF
+	;
+	AmpelState.Green:
+	red := FALSE;
+	yellow := FALSE;
+	green := TRUE;
+	IF block_road THEN
+		actualState := AmpelState.Yellow;
+	END_IF
+	;
+	AmpelState.Yellow:
+	red := FALSE;
+	yellow := TRUE;
+	green := FALSE;
+	timer(IN:= TRUE,PT:=yellow_lightDuration);
+	IF timer.Q THEN
+		timer(IN:=FALSE, PT:= yellow_lightDuration);
+		actualState := AmpelState.Red;
+	END_IF
+	;
+END_CASE]]></ST>
+    </Implementation>
+    <LineIds Name="FB_Ampel">
+      <LineId Id="109" Count="8" />
+      <LineId Id="83" Count="1" />
+      <LineId Id="118" Count="0" />
+      <LineId Id="97" Count="1" />
+      <LineId Id="119" Count="2" />
+      <LineId Id="125" Count="2" />
+      <LineId Id="133" Count="0" />
+      <LineId Id="131" Count="1" />
+      <LineId Id="124" Count="0" />
+      <LineId Id="43" Count="1" />
+      <LineId Id="164" Count="0" />
+      <LineId Id="166" Count="8" />
+      <LineId Id="67" Count="1" />
+      <LineId Id="139" Count="1" />
+      <LineId Id="135" Count="0" />
+      <LineId Id="138" Count="0" />
+      <LineId Id="141" Count="1" />
+      <LineId Id="144" Count="0" />
+      <LineId Id="143" Count="0" />
+      <LineId Id="81" Count="0" />
+      <LineId Id="103" Count="0" />
+      <LineId Id="147" Count="1" />
+      <LineId Id="146" Count="0" />
+      <LineId Id="149" Count="2" />
+      <LineId Id="104" Count="1" />
+      <LineId Id="153" Count="7" />
+      <LineId Id="106" Count="0" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

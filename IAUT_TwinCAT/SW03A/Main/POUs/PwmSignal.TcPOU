@@ -7,7 +7,7 @@ VAR_INPUT
 	ymax:				REAL; 	//Maximalwert
 	w:					REAL; 	//Kreisfrequenz
 	yoff:				REAL; 	//yoffset
-	PWM:				INT;	//PWM 0.0 ... 1.0%
+	PWM:				REAL;	//PWM 0.0 ... 1.0%
 	t : 				REAL;	//Zeit
 END_VAR
 VAR
@@ -15,9 +15,7 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[tempTime := t/((2*PI)/w)-REAL_TO_INT(t/((2*PI)/w));
-
-
+      <ST><![CDATA[tempTime := LMOD(lr_Value:=t,lr_Arg:=(2*PI)/w)/((2*PI)/w);
 
 IF(PWM = 1) THEN
 	PwmSignal := ymax + yoff;
@@ -32,8 +30,7 @@ ELSE
 END_IF]]></ST>
     </Implementation>
     <LineIds Name="PwmSignal">
-      <LineId Id="19" Count="0" />
-      <LineId Id="43" Count="1" />
+      <LineId Id="57" Count="0" />
       <LineId Id="25" Count="0" />
       <LineId Id="24" Count="0" />
       <LineId Id="26" Count="0" />

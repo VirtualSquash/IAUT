@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <GVL Name="IO" Id="{105c3da9-d06b-4696-96d7-893d47d8308e}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	bYellowButton 	AT %I*:BOOL;
+	bBlueButton		AT %I* :BOOL;
+	
+	bGreenLight		AT %Q*:BOOL;
+	bRedLight		AT %Q*:BOOL;
+	
+	iUltraschallSensor AT %I*:INT;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

@@ -12,12 +12,14 @@ END_VAR
     <Implementation>
       <ST><![CDATA[SinusValue := SinusFunction(A:=2,yoff:=0,w:=2,t:=t);
 SquareValue := SquareSignal(ymin:= 4, ymax := 3, w:= 5, yoff:= -1, t:=t);
+PWMValue := PwmSignal(ymin:= 4, ymax := 3, w:= 5, yoff:= -1, t:=t, PWM:= 0.7);
 
 t := t + 0.01;]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="2" Count="0" />
       <LineId Id="13" Count="0" />
+      <LineId Id="21" Count="0" />
       <LineId Id="12" Count="0" />
       <LineId Id="11" Count="0" />
     </LineIds>
