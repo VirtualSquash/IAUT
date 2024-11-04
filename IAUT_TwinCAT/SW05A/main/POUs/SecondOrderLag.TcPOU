@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="SecondOrderLag" Id="{fae0f55b-d1a1-4298-a16e-43964164497a}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK SecondOrderLag
+VAR_INPUT
+	d : 	REAL;
+	w : 	REAL;
+	h : 	REAL;
+	x : 	REAL;
+END_VAR
+VAR_OUTPUT
+	y : 	REAL;
+END_VAR
+VAR
+	xm : 	REAL;
+	xmm : 	REAL;
+	ym :	REAL;
+	ymm : 	REAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[y := xmm*w*w*h*h-ym*(-2+2*d*w*h)-ymm*(1-2*d*w*h+w*w*h*h);
+ym := y;
+ymm := ym;
+xm := x;
+xmm := xm;]]></ST>
+    </Implementation>
+    <LineIds Name="SecondOrderLag">
+      <LineId Id="9" Count="0" />
+      <LineId Id="19" Count="3" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

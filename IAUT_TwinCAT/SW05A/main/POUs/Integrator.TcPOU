@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Integrator" Id="{11aae5db-9c23-4224-ac47-adc1a4f2d2d4}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Integrator
+VAR_INPUT
+	x : REAL;
+	h : REAL;
+END_VAR
+VAR_OUTPUT
+	y : REAL;
+END_VAR
+VAR
+	xm : REAL;
+	ym : REAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[y := xm * h + ym;
+ym := y;
+xm : = x;]]></ST>
+    </Implementation>
+    <LineIds Name="Integrator">
+      <LineId Id="9" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="19" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

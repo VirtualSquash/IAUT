@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="PwmSignal" Id="{408c8a36-a369-4f60-a113-f5a9f95aa6e8}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION PwmSignal : REAL
+VAR_INPUT
+	ymin:				REAL; 	//Minimalwert
+	ymax:				REAL; 	//Maximalwert
+	w:					REAL; 	//Kreisfrequenz
+	yoff:				REAL; 	//yoffset
+	PWM:				REAL;	//PWM 0.0 ... 1.0%
+	t : 				REAL;	//Zeit
+END_VAR
+VAR
+	tempTime:			REAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[tempTime := LMOD(lr_Value:=t,lr_Arg:=(2*PI)/w)/((2*PI)/w);
+
+IF(PWM = 1) THEN
+	PwmSignal := ymax + yoff;
+	RETURN;
+END_IF
+IF(tempTime <= (1-PWM)) THEN
+	PwmSignal := ymin + yoff;
+	RETURN;
+ELSE
+	PwmSignal := ymax + yoff;
+	RETURN;
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="PwmSignal">
+      <LineId Id="3" Count="11" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="Tiefpassfilter" Id="{eeeb2314-48ff-4d6f-ab45-929f1a32f6b6}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Tiefpassfilter
+VAR_INPUT
+	x : REAL;
+	h : REAL;
+	tau : REAL;
+END_VAR
+VAR_OUTPUT
+	y : REAL;
+END_VAR
+VAR
+	xm : REAL;
+	ym : REAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[y := (h/tau)*xm-((h/tau)-1)*ym]]></ST>
+    </Implementation>
+    <LineIds Name="Tiefpassfilter">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
