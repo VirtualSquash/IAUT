@@ -17,7 +17,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[y := xm * h + ym;
 ym := y;
-xm : = x;]]></ST>
+xm := x;]]></ST>
     </Implementation>
     <LineIds Name="Integrator">
       <LineId Id="9" Count="0" />

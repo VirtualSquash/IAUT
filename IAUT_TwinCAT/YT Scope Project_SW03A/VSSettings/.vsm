@@ -4,9 +4,9 @@
   <FileName></FileName>
   <Children>
     <Node>
-      <Title>YT Scope Project</Title>
+      <Title>Scope Project1</Title>
       <Expanded>False</Expanded>
-      <FileName>C:\work\hslu\IAUT\IAUT_TwinCAT\YT Scope Project_SW03A\YT Scope Project.tcscopex</FileName>
+      <FileName>C:\work\IAUT\IAUT_TwinCAT\YT Scope Project_SW03A\Scope Project1.tcscopex</FileName>
       <Children>
         <Node>
           <Title>DataPool</Title>
@@ -14,19 +14,13 @@
           <FileName></FileName>
           <Children>
             <Node>
-              <Title>PWMValue</Title>
+              <Title>PWMValue025</Title>
               <Expanded>False</Expanded>
               <FileName></FileName>
               <Children />
             </Node>
             <Node>
-              <Title>SinusValue</Title>
-              <Expanded>False</Expanded>
-              <FileName></FileName>
-              <Children />
-            </Node>
-            <Node>
-              <Title>SquareValue</Title>
+              <Title>y</Title>
               <Expanded>False</Expanded>
               <FileName></FileName>
               <Children />
@@ -42,66 +36,20 @@
               <Title>Axis Group</Title>
               <Expanded>False</Expanded>
               <FileName></FileName>
-              <Children />
-            </Node>
-          </Children>
-        </Node>
-        <Node>
-          <Title>YT Chart (1)</Title>
-          <Expanded>False</Expanded>
-          <FileName></FileName>
-          <Children>
-            <Node>
-              <Title>Axis Group (1)</Title>
-              <Expanded>False</Expanded>
-              <FileName></FileName>
               <Children>
                 <Node>
-                  <Title>SquareValue</Title>
+                  <Title>PWMValue025</Title>
                   <Expanded>False</Expanded>
                   <FileName></FileName>
                   <Children />
                 </Node>
                 <Node>
-                  <Title>PWMValue</Title>
+                  <Title>y</Title>
                   <Expanded>False</Expanded>
                   <FileName></FileName>
                   <Children />
                 </Node>
               </Children>
-            </Node>
-          </Children>
-        </Node>
-        <Node>
-          <Title>YT Chart (2)</Title>
-          <Expanded>False</Expanded>
-          <FileName></FileName>
-          <Children>
-            <Node>
-              <Title>Axis Group (2)</Title>
-              <Expanded>False</Expanded>
-              <FileName></FileName>
-              <Children>
-                <Node>
-                  <Title>SinusValue</Title>
-                  <Expanded>False</Expanded>
-                  <FileName></FileName>
-                  <Children />
-                </Node>
-              </Children>
-            </Node>
-          </Children>
-        </Node>
-        <Node>
-          <Title>YT Chart (3)</Title>
-          <Expanded>False</Expanded>
-          <FileName></FileName>
-          <Children>
-            <Node>
-              <Title>Axis Group (3)</Title>
-              <Expanded>False</Expanded>
-              <FileName></FileName>
-              <Children />
             </Node>
           </Children>
         </Node>

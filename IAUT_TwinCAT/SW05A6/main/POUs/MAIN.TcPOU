@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="MAIN" Id="{061762b3-ea84-44cf-a43e-287e040a486c}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	t :					REAL := 0;
+	PWMValue025 :		REAL := 0;
+	PWMValue05 :		REAL := 0;
+	PWMValue075 :		REAL := 0;
+	Integrator025 :		Integrator;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[PWMValue025 := PwmSignal(ymin:= 0, ymax := 1, w:= 1, yoff:= 0, t:=t, PWM:= 0.25);
+PWMValue05 := PwmSignal(ymin:= 0, ymax := 1, w:= 1, yoff:= 0, t:=t, PWM:= 0.5);
+PWMValue075 := PwmSignal(ymin:= 0, ymax := 1, w:= 1, yoff:= 0, t:=t, PWM:= 0.75);
+Integrator025(x:= PWMValue025, h:=0.001);
+
+
+t := t + 0.01;]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="2" Count="0" />
+      <LineId Id="15" Count="1" />
+      <LineId Id="12" Count="2" />
+      <LineId Id="11" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
