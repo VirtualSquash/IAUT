@@ -74,11 +74,10 @@
       <DefaultResolution>Tc3_Module, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc3_Module</Namespace>
     </PlaceholderReference>
-  </ItemGroup>
-  <ItemGroup>
-    <LibraryReference Include="Title,1.0,HSLU">
+    <PlaceholderReference Include="Title">
+      <DefaultResolution>Title, * (HSLU)</DefaultResolution>
       <Namespace>Title</Namespace>
-    </LibraryReference>
+    </PlaceholderReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="main.tmc">

@@ -8,6 +8,16 @@ VAR
 	PWMValue05 :		REAL := 0;
 	PWMValue075 :		REAL := 0;
 	Integrator025 :		Integrator;
+	Integrator05 : 		Integrator;
+	Integrator075 :		Integrator;
+	
+	SinusValue10 :		REAL := 0;
+	SinusValue1 :		REAL := 0;
+	SinusValue100 :		REAL := 0;
+	
+	SquareValue :		REAL := 0;
+	PT1 :				Tiefpassfilter;
+	PT2 :				SecondOrderLag;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -15,14 +25,30 @@ END_VAR
 PWMValue05 := PwmSignal(ymin:= 0, ymax := 1, w:= 1, yoff:= 0, t:=t, PWM:= 0.5);
 PWMValue075 := PwmSignal(ymin:= 0, ymax := 1, w:= 1, yoff:= 0, t:=t, PWM:= 0.75);
 Integrator025(x:= PWMValue025, h:=0.001);
+Integrator05(x:= PWMValue05, h:=0.001);
+Integrator075(x:= PWMValue075, h:=0.001);
 
+SinusValue10 := SinusFunction(A:=1,yoff:=0,w:=10,t:=t);
+SinusValue1 := SinusFunction(A:=1,yoff:=0,w:=1,t:=t);
+SinusValue100 := SinusFunction(A:=1,yoff:=0,w:=100,t:=t);
 
-t := t + 0.01;]]></ST>
+SquareValue := SquareSignal(ymin:= -1, ymax:= 1, w:= 10, yoff:= 0, t:=t);
+PT1(x:=SquareValue,h:= 0.001,tau:= 0.1);
+PT2(d:=0.2,w:=10,h:=0.001,x:=SquareValue);
+
+t := t + 0.001;]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="2" Count="0" />
       <LineId Id="15" Count="1" />
       <LineId Id="12" Count="2" />
+      <LineId Id="32" Count="0" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="35" Count="1" />
+      <LineId Id="40" Count="1" />
+      <LineId Id="43" Count="0" />
+      <LineId Id="42" Count="0" />
+      <LineId Id="27" Count="0" />
       <LineId Id="11" Count="0" />
     </LineIds>
   </POU>

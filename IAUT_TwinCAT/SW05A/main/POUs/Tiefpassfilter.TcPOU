@@ -16,10 +16,13 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[y := (h/tau)*xm-((h/tau)-1)*ym]]></ST>
+      <ST><![CDATA[y := (h/tau)*xm-((h/tau)-1)*ym;
+ym := y;
+xm := x;]]></ST>
     </Implementation>
     <LineIds Name="Tiefpassfilter">
       <LineId Id="9" Count="0" />
+      <LineId Id="23" Count="1" />
     </LineIds>
   </POU>
 </TcPlcObject>

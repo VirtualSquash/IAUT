@@ -19,7 +19,7 @@
     <Company>HSLU</Company>
     <Released>false</Released>
     <Title>Title</Title>
-    <ProjectVersion>1.0</ProjectVersion>
+    <ProjectVersion>2.0</ProjectVersion>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="PlcTask.TcTTO">
