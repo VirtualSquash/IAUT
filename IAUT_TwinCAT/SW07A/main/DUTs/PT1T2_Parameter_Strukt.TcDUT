@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <DUT Name="PT1T2_Parameter_Strukt" Id="{23a5cb93-4cf2-48d5-b112-3b6fa044df40}">
+    <Declaration><![CDATA[TYPE PT1T2_Parameter_Strukt :
+STRUCT
+	K :			REAL;
+	T1 :		REAL;
+	T2 :		REAL;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

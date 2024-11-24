@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="PID_Regler" Id="{5a73cf8e-f42a-473f-9077-c1d965924ba7}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK PID_Regler
+VAR_INPUT
+	R :			REAL;
+	Y :			REAL;
+	Modus :		System_Modus_Enum;
+	Param :		PID_Parameter_Strukt;
+	T :			REAL;
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CASE Modus OF
+	System_Modus_Enum.System_Init:
+	;
+	System_Modus_Enum.System_Run:
+	;
+END_CASE]]></ST>
+    </Implementation>
+    <LineIds Name="PID_Regler">
+      <LineId Id="31" Count="1" />
+      <LineId Id="53" Count="1" />
+      <LineId Id="45" Count="0" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
