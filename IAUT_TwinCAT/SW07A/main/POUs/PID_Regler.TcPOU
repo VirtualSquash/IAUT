@@ -18,7 +18,7 @@ VAR
 	c0 :		REAL;
 
 	rm :		REAL;
-	ym :		REAL
+	ym :		REAL;
 	up : 		REAL;
 	ui :		REAL;
 	ud :		REAL;
@@ -31,7 +31,15 @@ END_VAR
 	System_Modus_Enum.System_Init:
 	c0 := (T*Param.Kp)/(2*Param.Ti);
 	a0 := (Param.Td)/(Param.Td+Param.N*T);
-	b0 := (Param.Kp*Param.Td*Param.N)/(Param.Td+Param.N*T)
+	b0 := (Param.Kp*Param.Td*Param.N)/(Param.Td+Param.N*T);
+	u := 0;
+	rm := 0;
+	ym := 0;
+	up := 0;
+	ui := 0;
+	ud := 0;
+	uim := 0;
+	udm := 0;
 	;
 	System_Modus_Enum.System_Run:
 	up := (r1-y1) * Param.Kp;
@@ -49,6 +57,9 @@ END_CASE]]></ST>
     <LineIds Name="PID_Regler">
       <LineId Id="31" Count="1" />
       <LineId Id="89" Count="2" />
+      <LineId Id="127" Count="0" />
+      <LineId Id="121" Count="5" />
+      <LineId Id="120" Count="0" />
       <LineId Id="53" Count="1" />
       <LineId Id="68" Count="0" />
       <LineId Id="73" Count="0" />

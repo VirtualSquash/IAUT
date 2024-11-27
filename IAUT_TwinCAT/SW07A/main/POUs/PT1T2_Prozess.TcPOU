@@ -30,13 +30,14 @@ END_VAR
 	b0 := (Param.K*T*T)/(a1*a2);
 	b1 := -(Param.T1/a1+Param.T2/a2);
 	b2 := (Param.T1*Param.T2)/(a1*a2);
+	y := 0;
 	ym := 0;
 	ymm := 0;
 	;
 	System_Modus_Enum.System_Run:
 	y := -a1 * ym - a2 *ymm + b0 * u;
-	ym := y;
 	ymm := ym;
+	ym := y;
 	;
 END_CASE]]></ST>
     </Implementation>
@@ -47,11 +48,12 @@ END_CASE]]></ST>
       <LineId Id="35" Count="0" />
       <LineId Id="28" Count="0" />
       <LineId Id="36" Count="1" />
+      <LineId Id="70" Count="0" />
       <LineId Id="48" Count="1" />
       <LineId Id="24" Count="1" />
       <LineId Id="39" Count="0" />
+      <LineId Id="92" Count="0" />
       <LineId Id="43" Count="0" />
-      <LineId Id="47" Count="0" />
       <LineId Id="26" Count="0" />
       <LineId Id="23" Count="0" />
     </LineIds>

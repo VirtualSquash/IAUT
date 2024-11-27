@@ -20,14 +20,15 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[y := xmm*w*w*h*h-ym*(-2+2*d*w*h)-ymm*(1-2*d*w*h+w*w*h*h);
-ym := y;
 ymm := ym;
-xm := x;
-xmm := xm;]]></ST>
+ym := y;
+xmm := xm;
+xm := x;]]></ST>
     </Implementation>
     <LineIds Name="SecondOrderLag">
       <LineId Id="9" Count="0" />
-      <LineId Id="19" Count="3" />
+      <LineId Id="39" Count="0" />
+      <LineId Id="19" Count="2" />
     </LineIds>
   </POU>
 </TcPlcObject>
