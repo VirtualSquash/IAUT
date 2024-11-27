@@ -3,28 +3,59 @@
   <POU Name="PID_Regler" Id="{5a73cf8e-f42a-473f-9077-c1d965924ba7}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK PID_Regler
 VAR_INPUT
-	R :			REAL;
-	Y :			REAL;
+	r1 :			REAL;
+	y1 :			REAL;
 	Modus :		System_Modus_Enum;
 	Param :		PID_Parameter_Strukt;
 	T :			REAL;
 END_VAR
 VAR_OUTPUT
+	u :			REAL;
 END_VAR
 VAR
+	a0 :		REAL;
+	b0 :		REAL;
+	c0 :		REAL;
+
+	rm :		REAL;
+	ym :		REAL
+	up : 		REAL;
+	ui :		REAL;
+	ud :		REAL;
+	uim :		REAL;
+	udm :		REAL;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[CASE Modus OF
 	System_Modus_Enum.System_Init:
+	c0 := (T*Param.Kp)/(2*Param.Ti);
+	a0 := (Param.Td)/(Param.Td+Param.N*T);
+	b0 := (Param.Kp*Param.Td*Param.N)/(Param.Td+Param.N*T)
 	;
 	System_Modus_Enum.System_Run:
+	up := (r1-y1) * Param.Kp;
+	ui := uim + c0*((r1-y1)+(rm-ym));
+	ud := b0 * ((r1-y1)-(rm-ym)) + a0 * udm;
+	u := up + ui + ud;
+	
+	rm := r1;
+	ym := y1;
+	uim := ui;
+	udm := ud;
 	;
 END_CASE]]></ST>
     </Implementation>
     <LineIds Name="PID_Regler">
       <LineId Id="31" Count="1" />
+      <LineId Id="89" Count="2" />
       <LineId Id="53" Count="1" />
+      <LineId Id="68" Count="0" />
+      <LineId Id="73" Count="0" />
+      <LineId Id="79" Count="1" />
+      <LineId Id="95" Count="0" />
+      <LineId Id="82" Count="2" />
+      <LineId Id="94" Count="0" />
       <LineId Id="45" Count="0" />
       <LineId Id="9" Count="0" />
     </LineIds>
