@@ -12,6 +12,8 @@ VAR_OUTPUT
 	y :			REAL;
 END_VAR
 VAR
+	alpha1 :	REAL;
+	alpha2 :	REAL;
 	a1 :		REAL;
 	a2 :		REAL;
 	b0 :		REAL;
@@ -25,11 +27,13 @@ END_VAR
     <Implementation>
       <ST><![CDATA[CASE Modus OF
 	System_Modus_Enum.System_Init:
-	a1 := T + Param.T1;
-	a2 := T + Param.T2;
-	b0 := (Param.K*T*T)/(a1*a2);
-	b1 := -(Param.T1/a1+Param.T2/a2);
-	b2 := (Param.T1*Param.T2)/(a1*a2);
+	alpha1 := T + Param.T1;
+	alpha2 := T + Param.T2;
+	a1 := 1;
+	a2 := 2;
+	b0 := (Param.K*T*T)/(alpha1*alpha2);
+	a1 := -((Param.T1/alpha1)+(Param.T2/alpha2));
+	a2 := (Param.T1*Param.T2)/(alpha1*alpha2);
 	y := 0;
 	ym := 0;
 	ymm := 0;
@@ -46,6 +50,7 @@ END_CASE]]></ST>
       <LineId Id="22" Count="0" />
       <LineId Id="27" Count="0" />
       <LineId Id="35" Count="0" />
+      <LineId Id="115" Count="1" />
       <LineId Id="28" Count="0" />
       <LineId Id="36" Count="1" />
       <LineId Id="70" Count="0" />

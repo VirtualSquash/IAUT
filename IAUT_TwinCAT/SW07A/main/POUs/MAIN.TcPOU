@@ -10,32 +10,42 @@ VAR
 	PID_1 :						PID_Regler;
 	PT1T2_1 :					PT1T2_Prozess;
 	r0 :						REAL := 0;	
+	e0 :						REAL := 0;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[PT1T2Parameter.K := 10;
-PT1T2Parameter.T1 := 0.1;
-PT1T2Parameter.T2 := 0.01;
+      <ST><![CDATA[CASE Modus OF
+	System_Modus_Enum.System_Init:
+	PT1T2Parameter.K := 10;
+	PT1T2Parameter.T1 := 0.1;
+	PT1T2Parameter.T2 := 0.01;
 
-PID_Parameter.Kp := PT1T2Parameter.K;
-PID_Parameter.Ti := PT1T2Parameter.T1;
-PID_Parameter.Td := PT1T2Parameter.T2;
-
-PID_1(r1 := r0, y1 := PT1T2_1.y, Modus := Modus, Param := PID_Parameter, T := T);
-PT1T2_1(u := PID_1.u, Modus := Modus, Param := PT1T2Parameter, T := T);
-]]></ST>
+	PID_Parameter.Kp := 1/PT1T2Parameter.K;
+	PID_Parameter.Ti := PT1T2Parameter.T1;
+	PID_Parameter.Td := PT1T2Parameter.T2;
+	PID_Parameter.N := 10;
+	PID_1(r1 := r0, y1 := PT1T2_1.y, Modus := Modus, Param := PID_Parameter, T := T);
+	PT1T2_1(u := PID_1.u, Modus := Modus, Param := PT1T2Parameter, T := T);
+	Modus := System_Modus_Enum.System_Run
+	;
+	System_Modus_Enum.System_Run:
+	e0 := r0 - PT1T2_1.y;
+	PID_1(r1 := r0, y1 := PT1T2_1.y, Modus := Modus, Param := PID_Parameter, T := T);
+	PT1T2_1(u := PID_1.u, Modus := Modus, Param := PT1T2Parameter, T := T);
+	;
+END_CASE]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
-      <LineId Id="30" Count="0" />
-      <LineId Id="32" Count="0" />
-      <LineId Id="31" Count="0" />
-      <LineId Id="33" Count="0" />
-      <LineId Id="28" Count="0" />
-      <LineId Id="34" Count="1" />
-      <LineId Id="29" Count="0" />
-      <LineId Id="27" Count="0" />
-      <LineId Id="22" Count="0" />
-      <LineId Id="19" Count="0" />
+      <LineId Id="60" Count="0" />
+      <LineId Id="70" Count="0" />
+      <LineId Id="74" Count="7" />
+      <LineId Id="90" Count="1" />
+      <LineId Id="72" Count="0" />
+      <LineId Id="71" Count="0" />
+      <LineId Id="82" Count="0" />
+      <LineId Id="87" Count="2" />
+      <LineId Id="84" Count="0" />
+      <LineId Id="66" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>
