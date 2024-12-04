@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="PID_Regler" Id="{9dd26e50-fe55-4eee-afdf-48ff63b62962}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK PID_Regler
+VAR_INPUT
+	r1 :			REAL;
+	y1 :			REAL;
+	Modus :		System_Modus_Enum;
+	Param :		PID_Parameter_Strukt;
+	T :			REAL;
+END_VAR
+VAR_OUTPUT
+	u :			REAL;
+END_VAR
+VAR
+	a0 :		REAL;
+	b0 :		REAL;
+	c0 :		REAL;
+
+	rm :		REAL;
+	ym :		REAL;
+	u_temp :	REAL;
+	up : 		REAL;
+	ui :		REAL;
+	ud :		REAL;
+	uim :		REAL;
+	udm :		REAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CASE Modus OF
+	System_Modus_Enum.System_Init:
+	c0 := (T*Param.Kp)/(2*Param.Ti);
+	a0 := (Param.Td)/(Param.Td+Param.N*T);
+	b0 := (Param.Kp*Param.Td*Param.N)/(Param.Td+Param.N*T);
+	u := 0;
+	rm := 0;
+	ym := 0;
+	up := 0;
+	ui := 0;
+	ud := 0;
+	uim := 0;
+	udm := 0;
+	;
+	System_Modus_Enum.System_Run:
+	up := (r1-y1) * Param.Kp;
+	IF Param.ARW = TRUE THEN
+		ui := uim + c0*((r1-y1)+(rm-ym)) + (T/Param.Tr)*(u-u_temp);
+	ELSE
+		ui := uim + c0*((r1-y1)+(rm-ym));
+	END_IF
+	ud := b0 * ((r1-y1)-(rm-ym)) + a0 * udm;
+	u := up + ui + ud;
+	u_temp := u;
+	IF u >= Param.umax THEN
+		u := Param.umax;
+	END_IF
+	IF u <= Param.umin THEN
+		u := Param.umin;
+	END_IF
+	rm := r1;
+	ym := y1;
+	uim := ui;
+	udm := ud;
+	;
+END_CASE]]></ST>
+    </Implementation>
+    <LineIds Name="PID_Regler">
+      <LineId Id="31" Count="1" />
+      <LineId Id="89" Count="2" />
+      <LineId Id="127" Count="0" />
+      <LineId Id="121" Count="5" />
+      <LineId Id="120" Count="0" />
+      <LineId Id="53" Count="1" />
+      <LineId Id="68" Count="0" />
+      <LineId Id="161" Count="1" />
+      <LineId Id="165" Count="0" />
+      <LineId Id="164" Count="0" />
+      <LineId Id="163" Count="0" />
+      <LineId Id="79" Count="1" />
+      <LineId Id="160" Count="0" />
+      <LineId Id="95" Count="0" />
+      <LineId Id="152" Count="1" />
+      <LineId Id="155" Count="0" />
+      <LineId Id="158" Count="0" />
+      <LineId Id="157" Count="0" />
+      <LineId Id="82" Count="2" />
+      <LineId Id="94" Count="0" />
+      <LineId Id="45" Count="0" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

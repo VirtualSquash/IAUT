@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="MAIN" Id="{261860bc-490b-40dd-870d-9892cf0cdb91}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	PT1T2Parameter :			PT1T2_Parameter_Strukt;
+	PID_Parameter :				PID_Parameter_Strukt;
+	Modus :						System_Modus_Enum := System_Modus_Enum.System_Init;
+	T :							REAL := 0.001;
+	PID_1 :						PID_Regler;
+	PT1T2_1 :					PT1T2_Prozess;
+	r0 :						REAL := 0;	
+	e0 :						REAL := 0;
+	
+	t_time: 					REAL := 0;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CASE Modus OF
+	System_Modus_Enum.System_Init:
+	PT1T2Parameter.K := 10;
+	PT1T2Parameter.T1 := 0.1;
+	PT1T2Parameter.T2 := 0.01;
+
+	PID_Parameter.Kp := 100/PT1T2Parameter.K;
+	PID_Parameter.Ti := PT1T2Parameter.T1;
+	PID_Parameter.Td := PT1T2Parameter.T2;
+	PID_Parameter.N := 10;
+	PID_Parameter.umax := 10;
+	PID_Parameter.umin := 0;
+	PID_Parameter.ARW := TRUE;
+	PID_Parameter.Tr := 0.1;
+	PID_1(r1 := r0, y1 := PT1T2_1.y, Modus := Modus, Param := PID_Parameter, T := T);
+	PT1T2_1(u := PID_1.u, Modus := Modus, Param := PT1T2Parameter, T := T);
+	Modus := System_Modus_Enum.System_Run
+	;
+	System_Modus_Enum.System_Run:
+	r0 := PwmSignal(ymin := 25, ymax:= 75, w:=1, yoff:=0, PWM:= 0.5, t_time);
+	e0 := r0 - PT1T2_1.y;
+	PID_1(r1 := r0, y1 := PT1T2_1.y, Modus := Modus, Param := PID_Parameter, T := T);
+	PT1T2_1(u := PID_1.u, Modus := Modus, Param := PT1T2Parameter, T := T);
+	t_time := t_time + T;
+	;
+END_CASE]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="100" Count="9" />
+      <LineId Id="119" Count="1" />
+      <LineId Id="127" Count="0" />
+      <LineId Id="129" Count="0" />
+      <LineId Id="110" Count="4" />
+      <LineId Id="126" Count="0" />
+      <LineId Id="115" Count="2" />
+      <LineId Id="124" Count="0" />
+      <LineId Id="118" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
