@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <DUT Name="PID_Parameter_Strukt" Id="{6bfe016e-0da2-4c91-a9a9-05583bb4ca1e}">
+    <Declaration><![CDATA[TYPE PID_Parameter_Strukt :
+STRUCT
+	Kp :		REAL;
+	Ti :		REAL;
+	Td :		REAL;
+	N :			REAL;
+	ARW :		BOOL;
+	Tr :		REAL;
+	umin :		REAL;
+	umax :		REAL;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

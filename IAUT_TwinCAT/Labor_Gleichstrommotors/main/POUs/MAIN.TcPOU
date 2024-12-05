@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="MAIN" Id="{ec08e590-4119-4f47-b80e-690b31a799d1}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	T :							REAL := 0.001;	
+	K :							REAL := 10;
+	PID_Parameter :				PID_Parameter_Strukt;
+	Modus :						System_Modus_Enum := System_Modus_Enum.System_Init;
+	PID_1 :						PID_Regler;
+	r0 :						REAL := 0;	//Goal RPM
+	dc_Encoder :				UINT := 0;	//DC Encoder Impulses (0-2048)
+	dc_RPM : 					REAL := 0;	//DC Motor RPM
+	e0 :						REAL := 0;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CASE Modus OF
+	System_Modus_Enum.System_Init:
+	PID_Parameter.Kp := 100/K;
+	PID_Parameter.Ti := 1;
+	PID_Parameter.Td := 2;
+	PID_Parameter.N := 10;
+	PID_Parameter.umax := 10;
+	PID_Parameter.umin := 0;
+	PID_Parameter.ARW := TRUE;
+	PID_Parameter.Tr := 0.1;
+	Modus := System_Modus_Enum.System_Run
+	;
+	System_Modus_Enum.System_Run:
+	e0 := r0;
+	PID_1(r1 := r0, y1 := 0, Modus := Modus, Param := PID_Parameter, T := T);
+	;
+END_CASE]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="6" Count="1" />
+      <LineId Id="12" Count="7" />
+      <LineId Id="22" Count="2" />
+      <LineId Id="26" Count="1" />
+      <LineId Id="30" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

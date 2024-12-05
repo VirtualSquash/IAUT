@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="PT1T2_Prozess" Id="{2c3f56fa-ae0a-4eff-b0d8-be8143ec70a6}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK PT1T2_Prozess
+VAR_INPUT
+	u :			REAL;
+	Modus :		System_Modus_Enum;
+	Param :		PT1T2_Parameter_Strukt;
+	T :			REAL;
+END_VAR
+VAR_OUTPUT
+	y :			REAL;
+END_VAR
+VAR
+	alpha1 :	REAL;
+	alpha2 :	REAL;
+	a1 :		REAL;
+	a2 :		REAL;
+	b0 :		REAL;
+	b1 :		REAL;
+	b2 :		REAL;
+	
+	ym :		REAL;
+	ymm :		REAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CASE Modus OF
+	System_Modus_Enum.System_Init:
+	alpha1 := T + Param.T1;
+	alpha2 := T + Param.T2;
+	a1 := 1;
+	a2 := 2;
+	b0 := (Param.K*T*T)/(alpha1*alpha2);
+	a1 := -((Param.T1/alpha1)+(Param.T2/alpha2));
+	a2 := (Param.T1*Param.T2)/(alpha1*alpha2);
+	y := 0;
+	ym := 0;
+	ymm := 0;
+	;
+	System_Modus_Enum.System_Run:
+	y := -a1 * ym - a2 *ymm + b0 * u;
+	ymm := ym;
+	ym := y;
+	;
+END_CASE]]></ST>
+    </Implementation>
+    <LineIds Name="PT1T2_Prozess">
+      <LineId Id="9" Count="0" />
+      <LineId Id="22" Count="0" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="115" Count="1" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="36" Count="1" />
+      <LineId Id="70" Count="0" />
+      <LineId Id="48" Count="1" />
+      <LineId Id="24" Count="1" />
+      <LineId Id="39" Count="0" />
+      <LineId Id="92" Count="0" />
+      <LineId Id="43" Count="0" />
+      <LineId Id="26" Count="0" />
+      <LineId Id="23" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
