@@ -13,7 +13,7 @@ VAR
 	dc_RPM : 					REAL := 0;	//DC Motor RPM
 	e0 :						REAL := 0;
 END_VAR
-]]></Declaration>
+//]]></Declaration>
     <Implementation>
       <ST><![CDATA[CASE Modus OF
 	System_Modus_Enum.System_Init:
