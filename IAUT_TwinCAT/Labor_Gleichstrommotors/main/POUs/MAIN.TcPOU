@@ -8,9 +8,15 @@ VAR
 	PID_Parameter :				PID_Parameter_Strukt;
 	Modus :						System_Modus_Enum := System_Modus_Enum.System_Init;
 	PID_1 :						PID_Regler;
+	
 	r0 :						REAL := 0;	//Goal RPM
-	dc_Encoder :				UINT := 0;	//DC Encoder Impulses (0-2048)
-	dc_RPM : 					REAL := 0;	//DC Motor RPM
+	dc_Encoder :				UINT := 0;	//DC Encoder Impulses (0-65536)
+	dc_Encoder_old :			UINT := 0;
+	dc_OverflowBit :			BOOL := 0;	//DC Encoder Overflow 
+	dc_UnderflowBit :			BOOL := 0;	//DC Encoder Underflow
+	dc_RPM : 					REAL := 0;	//DC Motor RPM (1 Rotation = 32,768 Impulses)
+	
+	
 	e0 :						REAL := 0;
 END_VAR
 //]]></Declaration>
@@ -28,8 +34,10 @@ END_VAR
 	Modus := System_Modus_Enum.System_Run
 	;
 	System_Modus_Enum.System_Run:
+	dc_RPM := dc_Encoder - dc_Encoder_old;
 	e0 := r0;
 	PID_1(r1 := r0, y1 := 0, Modus := Modus, Param := PID_Parameter, T := T);
+	dc_Encoder_old := dc_Encoder;
 	;
 END_CASE]]></ST>
     </Implementation>
@@ -37,7 +45,9 @@ END_CASE]]></ST>
       <LineId Id="6" Count="1" />
       <LineId Id="12" Count="7" />
       <LineId Id="22" Count="2" />
+      <LineId Id="45" Count="0" />
       <LineId Id="26" Count="1" />
+      <LineId Id="50" Count="0" />
       <LineId Id="30" Count="0" />
       <LineId Id="2" Count="0" />
     </LineIds>
