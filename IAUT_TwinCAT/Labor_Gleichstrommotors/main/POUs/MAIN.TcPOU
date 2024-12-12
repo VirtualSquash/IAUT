@@ -7,12 +7,13 @@ VAR
 	K :							REAL := 10;
 	PID_Parameter :				PID_Parameter_Strukt;
 	Modus :						System_Modus_Enum := System_Modus_Enum.System_Init;
+	openLoopModus :				BOOL := TRue;
 	PID_1 :						PID_Regler;
 	
 	r0 :						REAL := 0;	//Goal RPM
 	dc_Encoder_old :			UINT := 0;
 	dc_RPM : 					REAL := 0;	//DC Motor RPM (1 Rotation = 32,768 Impulses)
-	u	:						REAL := 0;
+	u	:						REAL := 0; 	//0-24 V
 	
 	
 	e0 :						REAL := 0;
@@ -29,23 +30,36 @@ END_VAR
 	PID_Parameter.umin := 0;
 	PID_Parameter.ARW := TRUE;
 	PID_Parameter.Tr := 0.1;
+	IO.dc_MotorEnable := TRUE;
 	Modus := System_Modus_Enum.System_Run
 	;
 	System_Modus_Enum.System_Run:
-	IF ((IO.dc_Encoder - dc_Encoder_old) < 0) AND (Io.dc_OverflowBit = TRUE) THEN
-		dc_RPM := ((65535 - dc_Encoder_old + IO.dc_Encoder) * (60*100/32768));
+	IF UINT_TO_LINT(UINT_TO_LINT(IO.dc_Encoder) - UINT_TO_LINT(dc_Encoder_old)) < 0) AND (IO.dc_OverflowBit = TRUE) THEN
+		dc_RPM := (INT_TO_REAL(65535 - dc_Encoder_old + IO.dc_Encoder) * (60.0*(1/T)/32768.0));
 	ELSE
 		dc_RPM := (INT_TO_REAL(IO.dc_Encoder - dc_Encoder_old) * (60.0*(1/T)/32768.0));
 	END_IF;
-	e0 := r0;
-	PID_1(r1 := r0, y1 := 0, Modus := Modus, Param := PID_Parameter, T := T);
+	IF openloopModus THEN
+		IO.dc_MotorVelocity := REAL_TO_INT(-u*(32767.0/24.0));
+	ELSE
+		e0 := r0;
+		PID_1(r1 := r0, y1 := 0, Modus := Modus, Param := PID_Parameter, T := T);
+	END_IF
+	
 	dc_Encoder_old := IO.dc_Encoder;
 	;
 
 END_CASE]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
-      <LineId Id="71" Count="21" />
+      <LineId Id="71" Count="9" />
+      <LineId Id="96" Count="0" />
+      <LineId Id="81" Count="7" />
+      <LineId Id="99" Count="1" />
+      <LineId Id="102" Count="2" />
+      <LineId Id="101" Count="0" />
+      <LineId Id="89" Count="0" />
+      <LineId Id="91" Count="1" />
       <LineId Id="69" Count="0" />
       <LineId Id="2" Count="0" />
     </LineIds>
