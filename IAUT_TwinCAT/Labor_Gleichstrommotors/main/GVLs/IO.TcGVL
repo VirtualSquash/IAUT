@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <GVL Name="IO" Id="{2c5391d6-20c1-4d0b-aba2-89ad09ef373c}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	dc_Encoder			AT %I*	:UINT;
+	dc_OverflowBit		AT %I* 	:BOOL;
+	dc_UnderflowBit		AT %I*	:BOOL;
+	
+	dc_MotorEnable 		AT %Q* 	:BOOL;
+	dc_MotorVelocity	AT %Q*	:INT;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

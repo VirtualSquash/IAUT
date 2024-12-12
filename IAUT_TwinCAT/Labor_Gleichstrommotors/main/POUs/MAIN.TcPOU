@@ -3,18 +3,16 @@
   <POU Name="MAIN" Id="{ec08e590-4119-4f47-b80e-690b31a799d1}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
-	T :							REAL := 0.001;	
+	T :							REAL := 0.01;	
 	K :							REAL := 10;
 	PID_Parameter :				PID_Parameter_Strukt;
 	Modus :						System_Modus_Enum := System_Modus_Enum.System_Init;
 	PID_1 :						PID_Regler;
 	
 	r0 :						REAL := 0;	//Goal RPM
-	dc_Encoder :				UINT := 0;	//DC Encoder Impulses (0-65536)
 	dc_Encoder_old :			UINT := 0;
-	dc_OverflowBit :			BOOL := 0;	//DC Encoder Overflow 
-	dc_UnderflowBit :			BOOL := 0;	//DC Encoder Underflow
 	dc_RPM : 					REAL := 0;	//DC Motor RPM (1 Rotation = 32,768 Impulses)
+	u	:						REAL := 0;
 	
 	
 	e0 :						REAL := 0;
@@ -34,21 +32,21 @@ END_VAR
 	Modus := System_Modus_Enum.System_Run
 	;
 	System_Modus_Enum.System_Run:
-	dc_RPM := dc_Encoder - dc_Encoder_old;
+	IF ((IO.dc_Encoder - dc_Encoder_old) < 0) AND (Io.dc_OverflowBit = TRUE) THEN
+		dc_RPM := ((65535 - dc_Encoder_old + IO.dc_Encoder) * (60*100/32768));
+	ELSE
+		dc_RPM := (INT_TO_REAL(IO.dc_Encoder - dc_Encoder_old) * (60.0*(1/T)/32768.0));
+	END_IF;
 	e0 := r0;
 	PID_1(r1 := r0, y1 := 0, Modus := Modus, Param := PID_Parameter, T := T);
-	dc_Encoder_old := dc_Encoder;
+	dc_Encoder_old := IO.dc_Encoder;
 	;
+
 END_CASE]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
-      <LineId Id="6" Count="1" />
-      <LineId Id="12" Count="7" />
-      <LineId Id="22" Count="2" />
-      <LineId Id="45" Count="0" />
-      <LineId Id="26" Count="1" />
-      <LineId Id="50" Count="0" />
-      <LineId Id="30" Count="0" />
+      <LineId Id="71" Count="21" />
+      <LineId Id="69" Count="0" />
       <LineId Id="2" Count="0" />
     </LineIds>
   </POU>
