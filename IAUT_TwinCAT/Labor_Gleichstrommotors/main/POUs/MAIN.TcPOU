@@ -34,8 +34,8 @@ END_VAR
 	Modus := System_Modus_Enum.System_Run
 	;
 	System_Modus_Enum.System_Run:
-	IF UINT_TO_LINT(UINT_TO_LINT(IO.dc_Encoder) - UINT_TO_LINT(dc_Encoder_old)) < 0) AND (IO.dc_OverflowBit = TRUE) THEN
-		dc_RPM := (INT_TO_REAL(65535 - dc_Encoder_old + IO.dc_Encoder) * (60.0*(1/T)/32768.0));
+	IF (UINT_TO_LINT(IO.dc_Encoder) - UINT_TO_LINT(dc_Encoder_old) < 0) AND (IO.dc_OverflowBit = TRUE) THEN
+		dc_RPM := (INT_TO_REAL(65535 - dc_Encoder_old +IO.dc_Encoder) * (60.0*(1/T)/32768.0));
 	ELSE
 		dc_RPM := (INT_TO_REAL(IO.dc_Encoder - dc_Encoder_old) * (60.0*(1/T)/32768.0));
 	END_IF;

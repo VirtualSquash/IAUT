@@ -86,18 +86,18 @@
 		</System>
 		<Plc>
 			<Project GUID="{D910440B-A715-407E-9730-EBC042ACFC13}" Name="main" PrjFilePath="main\main.plcproj" TmcFilePath="main\main.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="main\main.tmc" TmcHash="{176748D0-915D-71CD-ABC9-4ED2608EBCC4}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="main\main.tmc" TmcHash="{3D8A32DA-55C5-19E2-4022-379EB4D489BC}">
 					<Name>main Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
 						<Name>PlcTask Inputs</Name>
 						<Var>
-							<Name>IO.dc_Encoder</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
 							<Name>IO.dc_OverflowBit</Name>
 							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>IO.dc_Encoder</Name>
+							<Type>UINT</Type>
 						</Var>
 						<Var>
 							<Name>IO.dc_UnderflowBit</Name>
