@@ -4,62 +4,81 @@
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
 	T :							REAL := 0.01;	
-	K :							REAL := 10;
 	PID_Parameter :				PID_Parameter_Strukt;
+	PT1T2Parameter :			PT1T2_Parameter_Strukt;
 	Modus :						System_Modus_Enum := System_Modus_Enum.System_Init;
-	openLoopModus :				BOOL := TRue;
+	openLoopModus :				BOOL := TRUE;
+	SimulationPID :				BOOL := TRUE;
 	PID_1 :						PID_Regler;
+	PT1T2_1 :					PT1T2_Prozess;
 	
 	r0 :						REAL := 0;	//Goal RPM
+	e0 :						REAL := 0;
 	dc_Encoder_old :			UINT := 0;
 	dc_RPM : 					REAL := 0;	//DC Motor RPM (1 Rotation = 32,768 Impulses)
 	u	:						REAL := 0; 	//0-24 V
-	
-	
-	e0 :						REAL := 0;
 END_VAR
 //]]></Declaration>
     <Implementation>
       <ST><![CDATA[CASE Modus OF
 	System_Modus_Enum.System_Init:
-	PID_Parameter.Kp := 100/K;
-	PID_Parameter.Ti := 1;
-	PID_Parameter.Td := 2;
-	PID_Parameter.N := 10;
-	PID_Parameter.umax := 10;
-	PID_Parameter.umin := 0;
-	PID_Parameter.ARW := TRUE;
-	PID_Parameter.Tr := 0.1;
+	PT1T2Parameter.K := 26.8;
+	PT1T2Parameter.T1 := 0.013;
+	PT1T2Parameter.T2 := 0.013;
+	PID_Parameter.Kp := 4.35;
+	PID_Parameter.Ti := 0.06;
+	PID_Parameter.Td := 0.0015;
+	PID_Parameter.N := 20;
+	PID_Parameter.umax := 24;
+	PID_Parameter.umin := -24;
+	PID_Parameter.ARW := FALSE;
+	PID_Parameter.Tr := 0.03;
 	IO.dc_MotorEnable := TRUE;
+	PID_1(r1 := r0, y1 := PT1T2_1.y, Modus := Modus, Param := PID_Parameter, T := T);
+	PT1T2_1(u := PID_1.u, Modus := Modus, Param := PT1T2Parameter, T := T);
 	Modus := System_Modus_Enum.System_Run
 	;
 	System_Modus_Enum.System_Run:
-	IF (UINT_TO_LINT(IO.dc_Encoder) - UINT_TO_LINT(dc_Encoder_old) < 0) AND (IO.dc_OverflowBit = TRUE) THEN
-		dc_RPM := (INT_TO_REAL(65535 - dc_Encoder_old +IO.dc_Encoder) * (60.0*(1/T)/32768.0));
-	ELSE
-		dc_RPM := (INT_TO_REAL(IO.dc_Encoder - dc_Encoder_old) * (60.0*(1/T)/32768.0));
-	END_IF;
 	IF openloopModus THEN
 		IO.dc_MotorVelocity := REAL_TO_INT(-u*(32767.0/24.0));
+		IF SimulationPID THEN
+			PID_1(r1 := r0, y1 := PT1T2_1.y, Modus := Modus, Param := PID_Parameter, T := T);
+			PT1T2_1(u := PID_1.u, Modus := Modus, Param := PT1T2Parameter, T := T);
+		END_IF
 	ELSE
-		e0 := r0;
-		PID_1(r1 := r0, y1 := 0, Modus := Modus, Param := PID_Parameter, T := T);
+		IF (UINT_TO_LINT(IO.dc_Encoder) - UINT_TO_LINT(dc_Encoder_old) < 0) AND (IO.dc_OverflowBit = TRUE) THEN
+		dc_RPM := (INT_TO_REAL(65535 - dc_Encoder_old +IO.dc_Encoder) * (60.0*(1/T)/32768.0));
+		ELSE
+		dc_RPM := (INT_TO_REAL(IO.dc_Encoder - dc_Encoder_old) * (60.0*(1/T)/32768.0));
+		END_IF;
+		e0 := r0 - dc_RPM;
+		PID_1(r1 := r0, y1 := dc_RPM, Modus := Modus, Param := PID_Parameter, T := T);
+		dc_Encoder_old := IO.dc_Encoder;
 	END_IF
-	
-	dc_Encoder_old := IO.dc_Encoder;
 	;
 
 END_CASE]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
-      <LineId Id="71" Count="9" />
+      <LineId Id="71" Count="1" />
+      <LineId Id="131" Count="1" />
+      <LineId Id="130" Count="0" />
+      <LineId Id="73" Count="7" />
       <LineId Id="96" Count="0" />
-      <LineId Id="81" Count="7" />
+      <LineId Id="133" Count="1" />
+      <LineId Id="81" Count="2" />
       <LineId Id="99" Count="1" />
-      <LineId Id="102" Count="2" />
+      <LineId Id="123" Count="0" />
+      <LineId Id="126" Count="0" />
+      <LineId Id="136" Count="0" />
+      <LineId Id="127" Count="0" />
+      <LineId Id="102" Count="0" />
+      <LineId Id="157" Count="3" />
+      <LineId Id="156" Count="0" />
+      <LineId Id="103" Count="1" />
+      <LineId Id="155" Count="0" />
       <LineId Id="101" Count="0" />
-      <LineId Id="89" Count="0" />
-      <LineId Id="91" Count="1" />
+      <LineId Id="92" Count="0" />
       <LineId Id="69" Count="0" />
       <LineId Id="2" Count="0" />
     </LineIds>
