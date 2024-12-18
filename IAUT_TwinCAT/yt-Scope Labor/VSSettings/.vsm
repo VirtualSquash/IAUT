@@ -4,9 +4,9 @@
   <FileName></FileName>
   <Children>
     <Node>
-      <Title>Scope Project1</Title>
+      <Title>YT Scope Project</Title>
       <Expanded>False</Expanded>
-      <FileName>C:\work\IAUT\IAUT_TwinCAT\yt-Scope Labor\Scope Project1.tcscopex</FileName>
+      <FileName>C:\IAUT-HS24\IAUT-HS24\Labor\IAUT\IAUT_TwinCAT\yt-Scope Labor\YT Scope Project.tcscopex</FileName>
       <Children>
         <Node>
           <Title>DataPool</Title>
@@ -14,43 +14,13 @@
           <FileName></FileName>
           <Children>
             <Node>
-              <Title>e0</Title>
-              <Expanded>False</Expanded>
-              <FileName></FileName>
-              <Children />
-            </Node>
-            <Node>
-              <Title>r1</Title>
+              <Title>dc_RPM</Title>
               <Expanded>False</Expanded>
               <FileName></FileName>
               <Children />
             </Node>
             <Node>
               <Title>u</Title>
-              <Expanded>False</Expanded>
-              <FileName></FileName>
-              <Children />
-            </Node>
-            <Node>
-              <Title>ud</Title>
-              <Expanded>False</Expanded>
-              <FileName></FileName>
-              <Children />
-            </Node>
-            <Node>
-              <Title>ui</Title>
-              <Expanded>False</Expanded>
-              <FileName></FileName>
-              <Children />
-            </Node>
-            <Node>
-              <Title>up</Title>
-              <Expanded>False</Expanded>
-              <FileName></FileName>
-              <Children />
-            </Node>
-            <Node>
-              <Title>y1</Title>
               <Expanded>False</Expanded>
               <FileName></FileName>
               <Children />
@@ -68,43 +38,13 @@
               <FileName></FileName>
               <Children>
                 <Node>
-                  <Title>r1</Title>
-                  <Expanded>False</Expanded>
-                  <FileName></FileName>
-                  <Children />
-                </Node>
-                <Node>
-                  <Title>y1</Title>
-                  <Expanded>False</Expanded>
-                  <FileName></FileName>
-                  <Children />
-                </Node>
-                <Node>
                   <Title>u</Title>
                   <Expanded>False</Expanded>
                   <FileName></FileName>
                   <Children />
                 </Node>
                 <Node>
-                  <Title>up</Title>
-                  <Expanded>False</Expanded>
-                  <FileName></FileName>
-                  <Children />
-                </Node>
-                <Node>
-                  <Title>ui</Title>
-                  <Expanded>False</Expanded>
-                  <FileName></FileName>
-                  <Children />
-                </Node>
-                <Node>
-                  <Title>ud</Title>
-                  <Expanded>False</Expanded>
-                  <FileName></FileName>
-                  <Children />
-                </Node>
-                <Node>
-                  <Title>e0</Title>
+                  <Title>dc_RPM</Title>
                   <Expanded>False</Expanded>
                   <FileName></FileName>
                   <Children />

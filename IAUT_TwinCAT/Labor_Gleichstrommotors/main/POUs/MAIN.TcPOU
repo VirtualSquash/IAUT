@@ -3,7 +3,7 @@
   <POU Name="MAIN" Id="{ec08e590-4119-4f47-b80e-690b31a799d1}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
-	T :							REAL := 0.001;	
+	T :							REAL := 0.005;	
 	PID_Parameter :				PID_Parameter_Strukt;
 	PT1T2Parameter :			PT1T2_Parameter_Strukt;
 	Modus :						System_Modus_Enum := System_Modus_Enum.System_Init;
@@ -25,7 +25,7 @@ END_VAR
 	PT1T2Parameter.T1 := 0.013;
 	PT1T2Parameter.T2 := 0.013;
 	
-	PID_Parameter.Kp := 0.1;
+	PID_Parameter.Kp := 0.01;
 	PID_Parameter.Ti := 0.06;
 	PID_Parameter.Td := 0.015;;
 	PID_Parameter.N := 20;
