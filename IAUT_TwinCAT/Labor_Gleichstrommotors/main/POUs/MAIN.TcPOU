@@ -3,7 +3,7 @@
   <POU Name="MAIN" Id="{ec08e590-4119-4f47-b80e-690b31a799d1}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
-	T :							REAL := 0.01;	
+	T :							REAL := 0.001;	
 	PID_Parameter :				PID_Parameter_Strukt;
 	PT1T2Parameter :			PT1T2_Parameter_Strukt;
 	Modus :						System_Modus_Enum := System_Modus_Enum.System_Init;
@@ -24,9 +24,10 @@ END_VAR
 	PT1T2Parameter.K := 26.8;
 	PT1T2Parameter.T1 := 0.013;
 	PT1T2Parameter.T2 := 0.013;
-	PID_Parameter.Kp := 4.35;
+	
+	PID_Parameter.Kp := 0.1;
 	PID_Parameter.Ti := 0.06;
-	PID_Parameter.Td := 0.0015;
+	PID_Parameter.Td := 0.015;;
 	PID_Parameter.N := 20;
 	PID_Parameter.umax := 24;
 	PID_Parameter.umin := -24;
@@ -38,21 +39,22 @@ END_VAR
 	Modus := System_Modus_Enum.System_Run
 	;
 	System_Modus_Enum.System_Run:
+	IF (UINT_TO_LINT(IO.dc_Encoder) - UINT_TO_LINT(dc_Encoder_old) < 0) AND (IO.dc_OverflowBit = TRUE) THEN
+		dc_RPM := (INT_TO_REAL(65535 - dc_Encoder_old + IO.dc_Encoder) * (60.0*(1/T)/32768.0));
+	ELSE
+		dc_RPM := (INT_TO_REAL(IO.dc_Encoder - dc_Encoder_old) * (60.0*(1/T)/32768.0));
+	END_IF;
 	IF openloopModus THEN
+		e0 := r0 - PT1T2_1.y;
 		PID_1(r1 := r0, y1 := PT1T2_1.y, Modus := Modus, Param := PID_Parameter, T := T);
 		PT1T2_1(u := PID_1.u, Modus := Modus, Param := PT1T2Parameter, T := T);
 		IO.dc_MotorVelocity := REAL_TO_INT(-u*(32767.0/24.0));
 	ELSE
-		IF (UINT_TO_LINT(IO.dc_Encoder) - UINT_TO_LINT(dc_Encoder_old) < 0) AND (IO.dc_OverflowBit = TRUE) THEN
-			dc_RPM := (INT_TO_REAL(65535 - dc_Encoder_old + IO.dc_Encoder) * (60.0*(1/T)/32768.0));
-		ELSE
-			dc_RPM := (INT_TO_REAL(IO.dc_Encoder - dc_Encoder_old) * (60.0*(1/T)/32768.0));
-		END_IF;
 		e0 := r0 - dc_RPM;
 		PID_1(r1 := r0, y1 := dc_RPM, Modus := Modus, Param := PID_Parameter, T := T);
 		IO.dc_MotorVelocity := REAL_TO_INT(-PID_1.u*(32767.0/24.0));
-		dc_Encoder_old := IO.dc_Encoder;
 	END_IF
+	dc_Encoder_old := IO.dc_Encoder;
 	;
 
 END_CASE]]></ST>
@@ -61,21 +63,21 @@ END_CASE]]></ST>
       <LineId Id="71" Count="1" />
       <LineId Id="131" Count="1" />
       <LineId Id="130" Count="0" />
+      <LineId Id="197" Count="0" />
       <LineId Id="73" Count="7" />
       <LineId Id="96" Count="0" />
       <LineId Id="133" Count="1" />
       <LineId Id="81" Count="2" />
+      <LineId Id="202" Count="3" />
+      <LineId Id="201" Count="0" />
       <LineId Id="99" Count="0" />
-      <LineId Id="126" Count="0" />
+      <LineId Id="223" Count="1" />
       <LineId Id="136" Count="0" />
       <LineId Id="180" Count="0" />
-      <LineId Id="102" Count="0" />
-      <LineId Id="157" Count="3" />
-      <LineId Id="156" Count="0" />
-      <LineId Id="103" Count="1" />
+      <LineId Id="102" Count="2" />
       <LineId Id="178" Count="0" />
-      <LineId Id="155" Count="0" />
       <LineId Id="101" Count="0" />
+      <LineId Id="206" Count="0" />
       <LineId Id="92" Count="0" />
       <LineId Id="69" Count="0" />
       <LineId Id="2" Count="0" />

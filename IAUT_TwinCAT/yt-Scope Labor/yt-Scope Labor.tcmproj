@@ -7,7 +7,7 @@
     <RootNamespace>yt-Scope Labor</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="YT Scope Project.tcscopex">
+    <Content Include="Scope Project1.tcscopex">
       <SubType>Content</SubType>
     </Content>
   </ItemGroup>

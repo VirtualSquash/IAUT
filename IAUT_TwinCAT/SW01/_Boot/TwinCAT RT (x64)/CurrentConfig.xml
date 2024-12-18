@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<TcBootProject CreateTime="2024-10-17T09:50:03">
+<TcBootProject CreateTime="2024-12-18T18:44:24">
 	<System>
 		<LockedMemSize>33554432</LockedMemSize>
 		<AffinityMask>#x1</AffinityMask>
@@ -127,7 +127,7 @@
 	<ProjectInfo>
 		<ProjectName>SW01_02</ProjectName>
 		<ProjectGuid>{B8A08EF1-459F-4A6F-A649-FDD719F80A8A}</ProjectGuid>
-		<ConfigurationFile>C:\work\hslu\IAUT\IAUT_TwinCAT\SW01\SW01_02.tsproj</ConfigurationFile>
+		<ConfigurationFile>C:\work\IAUT\IAUT_TwinCAT\SW01\SW01_02.tsproj</ConfigurationFile>
 		<DataTypes/>
 		<PlcProjects/>
 		<Tasks/>
